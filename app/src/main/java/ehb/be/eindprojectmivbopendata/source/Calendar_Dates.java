@@ -1,7 +1,7 @@
 package ehb.be.eindprojectmivbopendata.source;
 
 /**
- * Created by mobapp10 on 09/05/17.
+ * Created by mobapp02, mobapp10 on 09/05/17.
  */
 
 public class Calendar_Dates {
