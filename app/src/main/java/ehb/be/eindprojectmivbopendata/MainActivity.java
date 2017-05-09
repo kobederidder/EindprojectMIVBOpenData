@@ -1,6 +1,7 @@
 package ehb.be.eindprojectmivbopendata;
 
 import android.os.Bundle;
+import android.os.storage.StorageManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -13,8 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
+import ehb.be.eindprojectmivbopendata.source.Stop;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    ArrayList<Stop> mStopList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
