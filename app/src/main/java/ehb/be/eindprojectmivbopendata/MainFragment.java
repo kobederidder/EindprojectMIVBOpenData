@@ -1,6 +1,6 @@
 package ehb.be.eindprojectmivbopendata;
 
-        import android.support.v4.app.Fragment;
+import android.app.Fragment;
 
 /**
  * Created by MVH on 9-5-2017.
