@@ -7,6 +7,4 @@ import android.app.Fragment;
  */
 
 public class MainFragment extends Fragment {
-
-    //Test om te pushen, Manith.
 }
