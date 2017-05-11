@@ -13,15 +13,33 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
+import ehb.be.eindprojectmivbopendata.parsers.AgencyParser;
 import ehb.be.eindprojectmivbopendata.source.Stop;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ArrayList<Stop> mStopList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +47,9 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        downloadZIP();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -105,4 +126,86 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void downloadZIP() {
+        Toast.makeText(this, "start download", Toast.LENGTH_SHORT).show();
+        RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
+        //params voor header
+        HashMap<String, String> params = new HashMap<>();
+
+        params.put("Authorization:", "Bearer 78f1c994a0e40b07f854b70a1cb7fbf5");
+        Toast.makeText(this, "download accessed", Toast.LENGTH_SHORT).show();
+        //headers kan je niet setten, fast and dirty de klasse overschrijven
+        InputStreamRequest getRequest = new InputStreamRequest(Request.Method.GET,
+                "https://opendata-api.stib-mivb.be/Files/1.0/Gtfs",
+                responseGETListener,
+                responseGETErrorListener,
+                params
+        );
+        Toast.makeText(this, "stream started", Toast.LENGTH_SHORT).show();
+        mQueue.add(getRequest);
+    }
+
+    private Response.Listener<byte[]> responseGETListener = new Response.Listener<byte[]>() {
+        @Override
+        public void onResponse(byte[] response) {
+
+            //http://stackoverflow.com/questions/8367126/how-can-i-convert-byte-array-to-zip-file
+            //https://techstricks.com/download-file-using-android-volley/
+
+            try {
+                //set the path where we want to save the file
+                //in this case, going to save it on the cache directory of the project
+                File cacheDir = getCacheDir();
+
+                ZipInputStream zipStream = new ZipInputStream(new ByteArrayInputStream(response));
+                ZipEntry entry;
+
+                while ((entry = zipStream.getNextEntry()) != null) {
+                    //gets filenames from zip -> party
+                    String entryName = entry.getName();
+
+                    File f = new File(cacheDir + File.pathSeparator + entryName);
+                    FileOutputStream out = new FileOutputStream(f);
+
+                    byte[] byteBuff = new byte[4096];
+                    int bytesRead = 0;
+                    while ((bytesRead = zipStream.read(byteBuff)) != -1)
+                    {
+                        out.write(byteBuff, 0, bytesRead);
+                    }
+                    out.close();
+
+                    zipStream.closeEntry();
+                }
+                zipStream.close();
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            parseFiles();
+        }
+    };
+    private Response.ErrorListener responseGETErrorListener = new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            //catch errors
+        }
+    };
+
+    private void parseFiles() {
+        Toast.makeText(this, "start parse", Toast.LENGTH_SHORT).show();
+        try {
+
+            AgencyParser.getInstance()
+                    .parseAgency(new FileInputStream(getCacheDir()+File.pathSeparator+"agency.txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Toast.makeText(getApplicationContext(), "Finished loading data", Toast.LENGTH_LONG).show();
+    }
+
 }
