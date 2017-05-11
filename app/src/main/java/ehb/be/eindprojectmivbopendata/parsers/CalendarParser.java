@@ -8,42 +8,45 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import ehb.be.eindprojectmivbopendata.source.Agency;
+
+import ehb.be.eindprojectmivbopendata.source.Calendar;
 
 /**
  * Created by mobapp10 on 11/05/17.
- * Copied from David
  */
 
-public class AgencyParser {
-    private static final AgencyParser ourInstance = new AgencyParser();
+public class CalendarParser {
+    private static final CalendarParser ourInstance = new CalendarParser();
 
-    public static AgencyParser getInstance() {
+    public static CalendarParser getInstance() {
         return ourInstance;
     }
 
-    private AgencyParser() {
+    private CalendarParser() {
     }
-    //needed stuff
-    private ArrayList<Agency> mAgencyList = new ArrayList<Agency> ();
+
+    private ArrayList<Calendar> mCalendarList = new ArrayList<>();
     private final String TAG = "GtfsDemo";
 
-    public void parseAgency(FileInputStream rid) {
+    public void parseCalendar(FileInputStream rid) {
         BufferedReader rawReader = new BufferedReader(new InputStreamReader(rid));
         String line = "";
         try {
             while((line = rawReader.readLine()) != null) {
-                mAgencyList.add(new Agency(line));
+                mCalendarList.add(new Calendar(line));
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         //first row in file are columns
-        mAgencyList.remove(0);
+        mCalendarList.remove(0);
 
 
     }
 
-
+    private void printAgency() {
+        for (Calendar calendar : mCalendarList)
+            Log.i(TAG, "name " + calendar.getService_id() + "\n");
+    }
 }

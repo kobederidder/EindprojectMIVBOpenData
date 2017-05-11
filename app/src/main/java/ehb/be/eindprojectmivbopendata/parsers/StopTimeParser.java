@@ -8,42 +8,44 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import ehb.be.eindprojectmivbopendata.source.Agency;
+import ehb.be.eindprojectmivbopendata.source.Stoptime;
 
 /**
  * Created by mobapp10 on 11/05/17.
- * Copied from David
  */
 
-public class AgencyParser {
-    private static final AgencyParser ourInstance = new AgencyParser();
+public class StoptimeParser {
+    private static final StoptimeParser ourInstance = new StoptimeParser();
 
-    public static AgencyParser getInstance() {
+    public static StoptimeParser getInstance() {
         return ourInstance;
     }
 
-    private AgencyParser() {
+    private StoptimeParser() {
     }
     //needed stuff
-    private ArrayList<Agency> mAgencyList = new ArrayList<Agency> ();
-    private final String TAG = "GtfsDemo";
+    private ArrayList<Stoptime> mStoptimeList = new ArrayList<> ();
+    private final String TAG = "Stoptime";
 
-    public void parseAgency(FileInputStream rid) {
+    public void parseStoptime(FileInputStream rid) {
         BufferedReader rawReader = new BufferedReader(new InputStreamReader(rid));
         String line = "";
         try {
             while((line = rawReader.readLine()) != null) {
-                mAgencyList.add(new Agency(line));
+                mStoptimeList.add(new Stoptime(line));
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         //first row in file are columns
-        mAgencyList.remove(0);
+        mStoptimeList.remove(0);
 
 
     }
 
-
+    private void printStoptime() {
+        for (Stoptime stoptime : mStoptimeList)
+            Log.i(TAG, "name " + stoptime.getDeparture_time() + "\n");
+    }
 }

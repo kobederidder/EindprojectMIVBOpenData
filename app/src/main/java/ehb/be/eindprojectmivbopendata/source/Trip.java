@@ -7,7 +7,7 @@ package ehb.be.eindprojectmivbopendata.source;
 //Commentaar in trip
 
 public class Trip {
-    String route_id, service_id, trip_id, trip_headsign, trip_short_name, direction_id, block_id, shape_id;
+    String route_id, service_id, trip_id, trip_headsign, direction_id, block_id, shape_id;
 
     public Trip(String string) {
         String[] temp = string.split(",");
@@ -16,10 +16,9 @@ public class Trip {
         this.service_id = temp[1];
         this.trip_id = temp[2];
         this.trip_headsign = temp[3];
-        this.trip_short_name = temp[4];
-        this.direction_id = temp[5];
-        this.block_id = temp[6];
-        this.shape_id = temp[7];
+        this.direction_id = temp[4];
+        this.block_id = temp[5];
+        this.shape_id = temp[6];
     }
 
 
@@ -53,14 +52,6 @@ public class Trip {
 
     public void setTrip_headsign(String trip_headsign) {
         this.trip_headsign = trip_headsign;
-    }
-
-    public String getTrip_short_name() {
-        return trip_short_name;
-    }
-
-    public void setTrip_short_name(String trip_short_name) {
-        this.trip_short_name = trip_short_name;
     }
 
     public String getDirection_id() {

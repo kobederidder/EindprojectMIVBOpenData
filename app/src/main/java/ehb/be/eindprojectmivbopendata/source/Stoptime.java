@@ -5,7 +5,7 @@ package ehb.be.eindprojectmivbopendata.source;
  */
 
 public class Stoptime {
-    String trip_id, arrival_time, departure_time, stop_id, stop_sequence, stop_headsign, pickup_type, drop_off_type, shape_dist_traveled;
+    String trip_id, arrival_time, departure_time, stop_id, stop_sequence, pickup_type, drop_off_type;
 
     public Stoptime(String string) {
         String[] temp = string.split(",");
@@ -15,10 +15,8 @@ public class Stoptime {
         this.departure_time = temp[2];
         this.stop_id = temp[3];
         this.stop_sequence = temp[4];
-        this.stop_headsign = temp[5];
-        this.pickup_type = temp[6];
-        this.drop_off_type = temp[7];
-        this.shape_dist_traveled = temp[8];
+        this.pickup_type = temp[5];
+        this.drop_off_type = temp[6];
     }
 
 
@@ -62,14 +60,6 @@ public class Stoptime {
         this.stop_sequence = stop_sequence;
     }
 
-    public String getStop_headsign() {
-        return stop_headsign;
-    }
-
-    public void setStop_headsign(String stop_headsign) {
-        this.stop_headsign = stop_headsign;
-    }
-
     public String getPickup_type() {
         return pickup_type;
     }
@@ -86,11 +76,5 @@ public class Stoptime {
         this.drop_off_type = drop_off_type;
     }
 
-    public String getShape_dist_traveled() {
-        return shape_dist_traveled;
-    }
 
-    public void setShape_dist_traveled(String shape_dist_traveled) {
-        this.shape_dist_traveled = shape_dist_traveled;
-    }
 }

@@ -5,7 +5,7 @@ package ehb.be.eindprojectmivbopendata.source;
  */
 
 public class Shape {
-    String shape_id, shape_pt_lat, shape_pt_lon, shape_pt_sequence, shape_dist_traveled;
+    String shape_id, shape_pt_lat, shape_pt_lon, shape_pt_sequence;
 
     public Shape(String string) {
         String[] temp = string.split(",");
@@ -14,7 +14,6 @@ public class Shape {
         this.shape_pt_lat = temp[1];
         this.shape_pt_lon = temp[2];
         this.shape_pt_sequence = temp[3];
-        this.shape_dist_traveled = temp[4];
     }
 
 
@@ -50,11 +49,5 @@ public class Shape {
         this.shape_pt_sequence = shape_pt_sequence;
     }
 
-    public String getShape_dist_traveled() {
-        return shape_dist_traveled;
-    }
 
-    public void setShape_dist_traveled(String shape_dist_traveled) {
-        this.shape_dist_traveled = shape_dist_traveled;
-    }
 }

@@ -1,9 +1,9 @@
 package ehb.be.eindprojectmivbopendata;
 
 import android.os.Bundle;
-import android.os.storage.StorageManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,7 +28,15 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import ehb.be.eindprojectmivbopendata.parsers.AgencyParser;
+import ehb.be.eindprojectmivbopendata.parsers.CalendarParser;
+import ehb.be.eindprojectmivbopendata.parsers.Calendar_DatesParser;
+import ehb.be.eindprojectmivbopendata.parsers.RouteParser;
+import ehb.be.eindprojectmivbopendata.parsers.ShapeParser;
+import ehb.be.eindprojectmivbopendata.parsers.StopParser;
+import ehb.be.eindprojectmivbopendata.parsers.StoptimeParser;
+import ehb.be.eindprojectmivbopendata.parsers.TripParser;
 import ehb.be.eindprojectmivbopendata.source.Stop;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -191,21 +199,31 @@ public class MainActivity extends AppCompatActivity
     private Response.ErrorListener responseGETErrorListener = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
-            //catch errors
+            Log.d("error in response", "blabla");
         }
     };
 
     private void parseFiles() {
-        Toast.makeText(this, "start parse", Toast.LENGTH_SHORT).show();
         try {
-
             AgencyParser.getInstance()
                     .parseAgency(new FileInputStream(getCacheDir()+File.pathSeparator+"agency.txt"));
+            CalendarParser.getInstance()
+                    .parseCalendar(new FileInputStream(getCacheDir()+File.pathSeparator+"calendar.txt"));
+            Calendar_DatesParser.getInstance()
+                    .parseCalDates(new FileInputStream(getCacheDir()+File.pathSeparator+"calendar_dates.txt"));
+            RouteParser.getInstance()
+                    .parseRoute(new FileInputStream(getCacheDir()+File.pathSeparator+"routes.txt"));
+            ShapeParser.getInstance()
+                    .parseShape(new FileInputStream(getCacheDir()+File.pathSeparator+"shapes.txt"));
+            StopParser.getInstance()
+                    .parseStop(new FileInputStream(getCacheDir()+File.pathSeparator+"stops.txt"));
+            //StoptimeParser.getInstance()
+            //        .parseStoptime(new FileInputStream(getCacheDir()+File.pathSeparator+"stop_times.txt"));
+            TripParser.getInstance()
+                    .parseTrip(new FileInputStream(getCacheDir()+File.pathSeparator+"trips.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        Toast.makeText(getApplicationContext(), "Finished loading data", Toast.LENGTH_LONG).show();
     }
 
 }

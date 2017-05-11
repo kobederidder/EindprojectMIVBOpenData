@@ -5,7 +5,7 @@ package ehb.be.eindprojectmivbopendata.source;
  */
 
 public class Stop {
-    String stop_id, stop_code, stop_name, stop_desc,stop_lat, stop_lon, zone_id, stop_url, location_type, parent_station;
+    String stop_id, stop_code, stop_name, stop_desc,stop_lat, stop_lon, zone_id, stop_url, location_type;
 
     public Stop(String string) {
         String[] temp = string.split(",");
@@ -19,7 +19,6 @@ public class Stop {
         this.zone_id = temp[6];
         this.stop_url = temp[7];
         this.location_type = temp[8];
-        this.parent_station = temp[9];
     }
 
 
@@ -95,11 +94,4 @@ public class Stop {
         this.location_type = location_type;
     }
 
-    public String getParent_station() {
-        return parent_station;
-    }
-
-    public void setParent_station(String parent_station) {
-        this.parent_station = parent_station;
-    }
 }

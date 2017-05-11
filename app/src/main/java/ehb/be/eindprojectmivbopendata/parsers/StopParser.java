@@ -8,42 +8,44 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import ehb.be.eindprojectmivbopendata.source.Agency;
+import ehb.be.eindprojectmivbopendata.source.Stop;
 
 /**
  * Created by mobapp10 on 11/05/17.
- * Copied from David
  */
 
-public class AgencyParser {
-    private static final AgencyParser ourInstance = new AgencyParser();
+public class StopParser {
+    private static final StopParser ourInstance = new StopParser();
 
-    public static AgencyParser getInstance() {
+    public static StopParser getInstance() {
         return ourInstance;
     }
 
-    private AgencyParser() {
+    private StopParser() {
     }
     //needed stuff
-    private ArrayList<Agency> mAgencyList = new ArrayList<Agency> ();
-    private final String TAG = "GtfsDemo";
+    private ArrayList<Stop> mStopList = new ArrayList<> ();
+    private final String TAG = "Stop";
 
-    public void parseAgency(FileInputStream rid) {
+    public void parseStop(FileInputStream rid) {
         BufferedReader rawReader = new BufferedReader(new InputStreamReader(rid));
         String line = "";
         try {
             while((line = rawReader.readLine()) != null) {
-                mAgencyList.add(new Agency(line));
+                mStopList.add(new Stop(line));
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         //first row in file are columns
-        mAgencyList.remove(0);
+        mStopList.remove(0);
 
 
     }
 
-
+    private void printRoute() {
+        for (Stop stop : mStopList)
+            Log.i(TAG, "id " + stop.getStop_id() + "\n");
+    }
 }
