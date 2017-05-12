@@ -41,11 +41,17 @@ public class StopParser {
         //first row in file are columns
         mStopList.remove(0);
 
+        printRoute();
 
     }
 
     private void printRoute() {
         for (Stop stop : mStopList)
-            Log.i(TAG, "id " + stop.getStop_id() + "\n");
+            Log.i(TAG, "id " + stop.getStop_id() + "\n"
+                    + "stop_name" + stop.getStop_name());
+    }
+
+    public ArrayList<Stop> getmStopList(){
+        return mStopList;
     }
 }

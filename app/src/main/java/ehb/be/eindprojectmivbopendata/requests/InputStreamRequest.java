@@ -1,4 +1,4 @@
-package ehb.be.eindprojectmivbopendata;
+package ehb.be.eindprojectmivbopendata.requests;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;

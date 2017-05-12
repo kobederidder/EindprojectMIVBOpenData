@@ -1,10 +1,9 @@
-package ehb.be.eindprojectmivbopendata;
+package ehb.be.eindprojectmivbopendata.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.util.Log;
-import android.view.View;
+
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -27,13 +26,15 @@ import java.util.HashMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import ehb.be.eindprojectmivbopendata.R;
+import ehb.be.eindprojectmivbopendata.fragments.ListFragment;
+import ehb.be.eindprojectmivbopendata.requests.InputStreamRequest;
 import ehb.be.eindprojectmivbopendata.parsers.AgencyParser;
 import ehb.be.eindprojectmivbopendata.parsers.CalendarParser;
 import ehb.be.eindprojectmivbopendata.parsers.Calendar_DatesParser;
 import ehb.be.eindprojectmivbopendata.parsers.RouteParser;
 import ehb.be.eindprojectmivbopendata.parsers.ShapeParser;
 import ehb.be.eindprojectmivbopendata.parsers.StopParser;
-import ehb.be.eindprojectmivbopendata.parsers.StoptimeParser;
 import ehb.be.eindprojectmivbopendata.parsers.TripParser;
 import ehb.be.eindprojectmivbopendata.source.Stop;
 
@@ -42,11 +43,19 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     ArrayList<Stop> mStopList = new ArrayList<>();
+
+    private final String FRAGMENT_BACKSTACK = "fragment_backstack";
+    private GoogleMap mMap;
 
 
     @Override
@@ -56,18 +65,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-        downloadZIP();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -76,6 +73,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        downloadZIP();
     }
 
     @Override
@@ -116,23 +115,41 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        switch (id)
+        {
+            case R.id.nav_list:
+                ListFragment listFragment = ListFragment.newInstance();
 
-        } else if (id == R.id.nav_slideshow) {
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, listFragment)
+                        .addToBackStack(FRAGMENT_BACKSTACK)
+                        .commit();
+                break;
 
-        } else if (id == R.id.nav_manage) {
+            case R.id.nav_map:
+                MapFragment mapFragment = MapFragment.newInstance();
 
-        } else if (id == R.id.nav_share) {
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, mapFragment)
+                        .addToBackStack(FRAGMENT_BACKSTACK)
+                        .commit();
 
-        } else if (id == R.id.nav_send) {
-
+                mapFragment.getMapAsync(this);
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        LatLng belgCoord = new LatLng(50.85712, 4.34744);
+        CameraUpdate updateMove = CameraUpdateFactory.newLatLngZoom(belgCoord, 14);
+        mMap.animateCamera(updateMove);
     }
 
     private void downloadZIP() {
@@ -207,20 +224,20 @@ public class MainActivity extends AppCompatActivity
         try {
             AgencyParser.getInstance()
                     .parseAgency(new FileInputStream(getCacheDir()+File.pathSeparator+"agency.txt"));
-            CalendarParser.getInstance()
-                    .parseCalendar(new FileInputStream(getCacheDir()+File.pathSeparator+"calendar.txt"));
-            Calendar_DatesParser.getInstance()
-                    .parseCalDates(new FileInputStream(getCacheDir()+File.pathSeparator+"calendar_dates.txt"));
-            RouteParser.getInstance()
-                    .parseRoute(new FileInputStream(getCacheDir()+File.pathSeparator+"routes.txt"));
-            ShapeParser.getInstance()
-                    .parseShape(new FileInputStream(getCacheDir()+File.pathSeparator+"shapes.txt"));
+            //CalendarParser.getInstance()
+             //       .parseCalendar(new FileInputStream(getCacheDir()+File.pathSeparator+"calendar.txt"));
+            //Calendar_DatesParser.getInstance()
+             //       .parseCalDates(new FileInputStream(getCacheDir()+File.pathSeparator+"calendar_dates.txt"));
+            //RouteParser.getInstance()
+             //       .parseRoute(new FileInputStream(getCacheDir()+File.pathSeparator+"routes.txt"));
+            //ShapeParser.getInstance()
+            //        .parseShape(new FileInputStream(getCacheDir()+File.pathSeparator+"shapes.txt"));
             StopParser.getInstance()
                     .parseStop(new FileInputStream(getCacheDir()+File.pathSeparator+"stops.txt"));
             //StoptimeParser.getInstance()
             //        .parseStoptime(new FileInputStream(getCacheDir()+File.pathSeparator+"stop_times.txt"));
-            TripParser.getInstance()
-                    .parseTrip(new FileInputStream(getCacheDir()+File.pathSeparator+"trips.txt"));
+            //TripParser.getInstance()
+            //        .parseTrip(new FileInputStream(getCacheDir()+File.pathSeparator+"trips.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
