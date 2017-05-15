@@ -48,4 +48,8 @@ public class RouteParser {
         for (Route route : mRouteList)
             Log.i(TAG, "name " + route.getRoute_short_name() + "\n");
     }
+
+    public ArrayList<Route> getmRouteList() {
+        return mRouteList;
+    }
 }
