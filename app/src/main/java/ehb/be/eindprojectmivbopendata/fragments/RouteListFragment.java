@@ -25,7 +25,7 @@ import ehb.be.eindprojectmivbopendata.source.Route;
 public class RouteListFragment extends Fragment {
     private SharedPreferences sharedPreferences;
 
-    ArrayList<Route> mStop = new ArrayList<>();
+    ArrayList<Route> mRoute = new ArrayList<>();
     ArrayAdapter<Route> aa;
 
     public RouteListFragment() {
@@ -40,11 +40,11 @@ public class RouteListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_route_list, container, false);
 
-        ListView lv = (ListView) rootView.findViewById(R.id.lv_list);
+        ListView lv = (ListView) rootView.findViewById(R.id.lv_routelist);
 
-        aa = new ArrayAdapter<Route>(getActivity(), android.R.layout.simple_list_item_1,mStop);
+        aa = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,mRoute);
 
         lv.setAdapter(aa);
 

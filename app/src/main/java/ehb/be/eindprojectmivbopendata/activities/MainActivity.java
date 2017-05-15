@@ -28,6 +28,7 @@ import java.util.zip.ZipInputStream;
 
 import ehb.be.eindprojectmivbopendata.R;
 import ehb.be.eindprojectmivbopendata.fragments.ListFragment;
+import ehb.be.eindprojectmivbopendata.fragments.RouteListFragment;
 import ehb.be.eindprojectmivbopendata.requests.InputStreamRequest;
 import ehb.be.eindprojectmivbopendata.parsers.AgencyParser;
 import ehb.be.eindprojectmivbopendata.parsers.CalendarParser;
@@ -136,6 +137,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 mapFragment.getMapAsync(this);
                 break;
+
+            case R.id.nav_detaillist:
+                RouteListFragment routeListFragment = RouteListFragment.newInstance();
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, routeListFragment)
+                        .addToBackStack(FRAGMENT_BACKSTACK)
+                        .commit();
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -153,7 +162,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void downloadZIP() {
-        Toast.makeText(this, "start download", Toast.LENGTH_SHORT).show();
+
+
         RequestQueue mQueue = Volley.newRequestQueue(getApplicationContext());
         //params voor header
         HashMap<String, String> params = new HashMap<>();
@@ -216,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Response.ErrorListener responseGETErrorListener = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
-            Log.d("error in response", "blabla");
+            Log.i("error in response", "blabla");
         }
     };
 
@@ -228,8 +238,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
              //       .parseCalendar(new FileInputStream(getCacheDir()+File.pathSeparator+"calendar.txt"));
             //Calendar_DatesParser.getInstance()
              //       .parseCalDates(new FileInputStream(getCacheDir()+File.pathSeparator+"calendar_dates.txt"));
-            //RouteParser.getInstance()
-             //       .parseRoute(new FileInputStream(getCacheDir()+File.pathSeparator+"routes.txt"));
+            RouteParser.getInstance()
+                   .parseRoute(new FileInputStream(getCacheDir()+File.pathSeparator+"routes.txt"));
             //ShapeParser.getInstance()
             //        .parseShape(new FileInputStream(getCacheDir()+File.pathSeparator+"shapes.txt"));
             StopParser.getInstance()
@@ -241,6 +251,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        Toast.makeText(this, "Download finished", Toast.LENGTH_SHORT).show();
+
     }
 
 }
