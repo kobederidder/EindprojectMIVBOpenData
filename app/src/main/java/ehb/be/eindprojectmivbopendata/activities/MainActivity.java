@@ -28,6 +28,7 @@ import java.util.zip.ZipInputStream;
 
 import ehb.be.eindprojectmivbopendata.R;
 import ehb.be.eindprojectmivbopendata.fragments.ListFragment;
+import ehb.be.eindprojectmivbopendata.fragments.MapFragment;
 import ehb.be.eindprojectmivbopendata.fragments.RouteListFragment;
 import ehb.be.eindprojectmivbopendata.requests.InputStreamRequest;
 import ehb.be.eindprojectmivbopendata.parsers.AgencyParser;
@@ -47,18 +48,18 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
+
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ArrayList<Stop> mStopList = new ArrayList<>();
 
     private final String FRAGMENT_BACKSTACK = "fragment_backstack";
     private GoogleMap mMap;
     private RouteListFragment mRoute = RouteListFragment.newInstance();
-
+    private MapFragment mapFragment = new MapFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,14 +135,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_map:
-                MapFragment mapFragment = MapFragment.newInstance();
 
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, mapFragment)
                         .addToBackStack(FRAGMENT_BACKSTACK)
                         .commit();
 
-                mapFragment.getMapAsync(this);
+
                 break;
 
             case R.id.nav_detaillist:
@@ -157,14 +157,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        LatLng belgCoord = new LatLng(50.85712, 4.34744);
-        CameraUpdate updateMove = CameraUpdateFactory.newLatLngZoom(belgCoord, 14);
-        mMap.animateCamera(updateMove);
-    }
 
     private void downloadZIP() {
 
@@ -254,6 +246,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //TripParser.getInstance()
             //        .parseTrip(new FileInputStream(getCacheDir()+File.pathSeparator+"trips.txt"));
             mRoute.addAll();
+            mapFragment.getAllStopsOnMap();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
