@@ -17,6 +17,7 @@ import ehb.be.eindprojectmivbopendata.R;
 import ehb.be.eindprojectmivbopendata.parsers.RouteParser;
 import ehb.be.eindprojectmivbopendata.parsers.StopParser;
 import ehb.be.eindprojectmivbopendata.source.Route;
+import ehb.be.eindprojectmivbopendata.util.RouteAdapter;
 
 /**
  * Created by mobapp10 on 15/05/17.
@@ -26,7 +27,7 @@ public class RouteListFragment extends Fragment {
     private SharedPreferences sharedPreferences;
 
     ArrayList<Route> mRoute = new ArrayList<>();
-    ArrayAdapter<Route> aa;
+    RouteAdapter aa;
 
     public RouteListFragment() {
     }
@@ -44,7 +45,7 @@ public class RouteListFragment extends Fragment {
 
         ListView lv = (ListView) rootView.findViewById(R.id.lv_routelist);
 
-        aa = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,mRoute);
+        aa = new RouteAdapter(getActivity(), mRoute);
 
         lv.setAdapter(aa);
 
@@ -58,7 +59,14 @@ public class RouteListFragment extends Fragment {
         super.onStart();
         //aa.addAll(StopParser.getInstance().getmStopList());
         //aa.addAll(CalendarParser.getInstance().getmCalendarList());
-        aa.addAll(RouteParser.getInstance().getmRouteList());
+
+        aa.notifyDataSetChanged();
+    }
+
+    public void addAll() {
+        mRoute = RouteParser.getInstance().getmRouteList();
+
+        aa.addAll(mRoute);
         aa.notifyDataSetChanged();
     }
 }

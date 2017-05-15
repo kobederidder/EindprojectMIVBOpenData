@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private final String FRAGMENT_BACKSTACK = "fragment_backstack";
     private GoogleMap mMap;
+    private RouteListFragment mRoute = RouteListFragment.newInstance();
 
 
     @Override
@@ -74,6 +75,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, mRoute)
+                .addToBackStack(FRAGMENT_BACKSTACK)
+                .commit();
 
         downloadZIP();
     }
@@ -139,9 +145,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_detaillist:
-                RouteListFragment routeListFragment = RouteListFragment.newInstance();
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.container, routeListFragment)
+                        .replace(R.id.container, mRoute)
                         .addToBackStack(FRAGMENT_BACKSTACK)
                         .commit();
                 break;
@@ -168,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //params voor header
         HashMap<String, String> params = new HashMap<>();
 
-        params.put("Authorization:", "Bearer 78f1c994a0e40b07f854b70a1cb7fbf5");
+        params.put("Authorization:", "Bearer c2e6a689138375adf8463707c82749dc");
         Toast.makeText(this, "download accessed", Toast.LENGTH_SHORT).show();
         //headers kan je niet setten, fast and dirty de klasse overschrijven
         InputStreamRequest getRequest = new InputStreamRequest(Request.Method.GET,
@@ -248,6 +253,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //        .parseStoptime(new FileInputStream(getCacheDir()+File.pathSeparator+"stop_times.txt"));
             //TripParser.getInstance()
             //        .parseTrip(new FileInputStream(getCacheDir()+File.pathSeparator+"trips.txt"));
+            mRoute.addAll();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
