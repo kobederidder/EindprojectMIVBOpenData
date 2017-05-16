@@ -11,7 +11,6 @@ public class Route {
         String[] temp = string.split(",");
 
         this.route_id = temp[0];
-
         this.route_short_name = temp[1];
         this.route_long_name = temp[2];
         this.route_desc = temp[3];
