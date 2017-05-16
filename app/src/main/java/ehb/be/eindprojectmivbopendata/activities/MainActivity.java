@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.content_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -125,31 +125,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id)
         {
-            case R.id.nav_list:
-                ListFragment listFragment = ListFragment.newInstance();
+            case R.id.nav_home:
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, homeFragment)
+                        .addToBackStack(FRAGMENT_BACKSTACK)
+                        .commit();
+            break;
 
+            case R.id.nav_list:
+            ListFragment listFragment = ListFragment.newInstance();
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, listFragment)
                         .addToBackStack(FRAGMENT_BACKSTACK)
                         .commit();
-                break;
+            break;
 
             case R.id.nav_map:
-
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, mapFragment)
                         .addToBackStack(FRAGMENT_BACKSTACK)
                         .commit();
-
-
-                break;
+            break;
 
             case R.id.nav_detaillist:
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, mRoute)
                         .addToBackStack(FRAGMENT_BACKSTACK)
                         .commit();
-                break;
+            break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
