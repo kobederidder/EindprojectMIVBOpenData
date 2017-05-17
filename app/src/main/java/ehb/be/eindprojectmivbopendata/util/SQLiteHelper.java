@@ -49,11 +49,11 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //TODO execsql opstellen
-        db.execSQL("CREATE TABLE " + TABLE_ROUTES + " (" + COLUMN_ROUTE_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COLUMN_ROUTE_SHORT_NAME + " TEXT NOT NULL" + COLUMN_ROUTE_LONG_NAME + " TEXT NOT NULL"
-                + COLUMN_ROUTE_DESC + " TEXT NOT NULL" + COLUMN_ROUTE_TYPE + " TEXT NOT NULL"
-                + COLUMN_ROUTE_URL + " TEXT NOT NULL" + COLUMN_ROUTE_COLOR + " TEXT NOT NULL" + COLUMN_ROUTE_TEXT_COLOR + " TEXT NOT NULL" + " );"
+        //TODO execsql beter maken
+        db.execSQL("CREATE TABLE " + TABLE_ROUTES + " (" + COLUMN_ROUTE_ID + " TEXT NOT NULL, "
+                + COLUMN_ROUTE_SHORT_NAME + " TEXT NOT NULL, " + COLUMN_ROUTE_LONG_NAME + " TEXT NOT NULL, "
+                + COLUMN_ROUTE_DESC + " TEXT, " + COLUMN_ROUTE_TYPE + " TEXT, "
+                + COLUMN_ROUTE_URL + " TEXT, " + COLUMN_ROUTE_COLOR + " TEXT, " + COLUMN_ROUTE_TEXT_COLOR + " TEXT" + " );"
         );
     }
 

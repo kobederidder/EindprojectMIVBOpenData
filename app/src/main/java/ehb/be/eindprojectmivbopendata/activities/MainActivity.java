@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //Calendar_DatesParser.getInstance()
              //       .parseCalDates(new FileInputStream(getCacheDir()+File.pathSeparator+"calendar_dates.txt"));
             RouteParser.getInstance()
-                   .parseRoute(new FileInputStream(getCacheDir()+File.pathSeparator+"routes.txt"));
+                   .parseRoute(new FileInputStream(getCacheDir()+File.pathSeparator+"routes.txt"), this);
             //ShapeParser.getInstance()
             //        .parseShape(new FileInputStream(getCacheDir()+File.pathSeparator+"shapes.txt"));
             StopParser.getInstance()

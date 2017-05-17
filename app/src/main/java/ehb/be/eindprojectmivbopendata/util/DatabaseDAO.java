@@ -14,11 +14,18 @@ import ehb.be.eindprojectmivbopendata.source.Route;
  * Created by mobapp10 on 17/05/17.
  */
 
-public class databaseDAO {
+public class DatabaseDAO {
     private SQLiteHelper dbHelper;
     private SQLiteDatabase db;
 
-    public databaseDAO(Context c) {
+    public DatabaseDAO(Context c) {
+        dbHelper = new SQLiteHelper(c);
+        db = dbHelper.getWritableDatabase();
+    }
+
+    public DatabaseDAO(SQLiteHelper dbHelper, SQLiteDatabase db) {
+        this.dbHelper = dbHelper;
+        this.db = db;
     }
 
     public void open(Context c) {
@@ -59,7 +66,7 @@ public class databaseDAO {
         return allRoutes;
     }
 
-    public boolean setAllRoutes(ArrayList<Route> routeArrayList) {
+    public boolean insertAllRoutes(ArrayList<Route> routeArrayList) {
 
         ContentValues mValues = new ContentValues();
         for(Route r : routeArrayList) {

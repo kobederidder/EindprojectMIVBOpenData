@@ -1,5 +1,6 @@
 package ehb.be.eindprojectmivbopendata.parsers;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -9,6 +10,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import ehb.be.eindprojectmivbopendata.source.Route;
+import ehb.be.eindprojectmivbopendata.util.DatabaseDAO;
 
 /**
  * Created by mobapp10 on 11/05/17.
@@ -27,7 +29,7 @@ public class RouteParser {
     private ArrayList<Route> mRouteList = new ArrayList<> ();
     private final String TAG = "Route";
 
-    public void parseRoute(FileInputStream rid) {
+    public void parseRoute(FileInputStream rid, Context c) {
         BufferedReader rawReader = new BufferedReader(new InputStreamReader(rid));
         String line = "";
         try {
@@ -41,7 +43,9 @@ public class RouteParser {
         //first row in file are columns
         mRouteList.remove(0);
 
-
+        DatabaseDAO dao = new DatabaseDAO(c);
+        dao.insertAllRoutes(mRouteList);
+        dao.close();
     }
 
     private void printRoute() {
