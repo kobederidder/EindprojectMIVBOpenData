@@ -20,6 +20,8 @@ public class Route {
         this.route_text_color = temp[7];
     }
 
+    public Route() {
+    }
 
     public String getRoute_id() {
         return route_id;

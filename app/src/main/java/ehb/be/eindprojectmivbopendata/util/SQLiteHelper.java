@@ -17,7 +17,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     private final static String TABLE_ROUTES = "routes";
 
     //kolommen van tabel stops
-    private final static String COLUMN_STOP_ID = "_id";
+    private final static String COLUMN_STOP_ID = "stop_id";
     private final static String COLUMN_STOP_CODE = "stop_code";
     private final static String COLUMN_STOP_NAME = "stop_name";
     private final static String COLUMN_STOP_DESC = "stop_desc";
@@ -31,7 +31,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             COLUMN_STOP_DESC, COLUMN_STOP_LAT, COLUMN_STOP_LON, COLUMN_ZONE_ID, COLUMN_STOP_URL, COLUMN_LOCATION_TYPE};
 
     //kolommen van tabel routes
-    private final static String COLUMN_ROUTE_ID = "_id";
+    private final static String COLUMN_ROUTE_ID = "route_id";
     private final static String COLUMN_ROUTE_SHORT_NAME = "route_short_name";
     private final static String COLUMN_ROUTE_LONG_NAME = "route_long_name";
     private final static String COLUMN_ROUTE_DESC = "route_desc";
@@ -50,10 +50,108 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //TODO execsql opstellen
+        db.execSQL("CREATE TABLE " + TABLE_ROUTES + " (" + COLUMN_ROUTE_ID + "INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_ROUTE_SHORT_NAME + " TEXT NOT NULL" + COLUMN_ROUTE_LONG_NAME + " TEXT NOT NULL"
+                + COLUMN_ROUTE_DESC + " TEXT NOT NULL" + COLUMN_ROUTE_TYPE + " TEXT NOT NULL"
+                + COLUMN_ROUTE_URL + " TEXT NOT NULL" + COLUMN_ROUTE_COLOR + " TEXT NOT NULL" + COLUMN_ROUTE_TEXT_COLOR + " TEXT NOT NULL" + " );"
+        );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+
+    public static String getTableStops() {
+        return TABLE_STOPS;
+    }
+
+    public static String getTableRoutes() {
+        return TABLE_ROUTES;
+    }
+
+    public static String[] getColumnsStops() {
+        return COLUMNS_STOPS;
+    }
+
+    public static String[] getColumnsRoutes() {
+        return COLUMNS_ROUTES;
+    }
+
+    public static String getDbName() {
+        return DB_NAME;
+    }
+
+    public static int getDbVersion() {
+        return DB_VERSION;
+    }
+
+    public static String getColumnStopId() {
+        return COLUMN_STOP_ID;
+    }
+
+    public static String getColumnStopCode() {
+        return COLUMN_STOP_CODE;
+    }
+
+    public static String getColumnStopName() {
+        return COLUMN_STOP_NAME;
+    }
+
+    public static String getColumnStopDesc() {
+        return COLUMN_STOP_DESC;
+    }
+
+    public static String getColumnStopLat() {
+        return COLUMN_STOP_LAT;
+    }
+
+    public static String getColumnStopLon() {
+        return COLUMN_STOP_LON;
+    }
+
+    public static String getColumnZoneId() {
+        return COLUMN_ZONE_ID;
+    }
+
+    public static String getColumnStopUrl() {
+        return COLUMN_STOP_URL;
+    }
+
+    public static String getColumnLocationType() {
+        return COLUMN_LOCATION_TYPE;
+    }
+
+    public static String getColumnRouteId() {
+        return COLUMN_ROUTE_ID;
+    }
+
+    public static String getColumnRouteShortName() {
+        return COLUMN_ROUTE_SHORT_NAME;
+    }
+
+    public static String getColumnRouteLongName() {
+        return COLUMN_ROUTE_LONG_NAME;
+    }
+
+    public static String getColumnRouteDesc() {
+        return COLUMN_ROUTE_DESC;
+    }
+
+    public static String getColumnRouteType() {
+        return COLUMN_ROUTE_TYPE;
+    }
+
+    public static String getColumnRouteUrl() {
+        return COLUMN_ROUTE_URL;
+    }
+
+    public static String getColumnRouteColor() {
+        return COLUMN_ROUTE_COLOR;
+    }
+
+    public static String getColumnRouteTextColor() {
+        return COLUMN_ROUTE_TEXT_COLOR;
     }
 }

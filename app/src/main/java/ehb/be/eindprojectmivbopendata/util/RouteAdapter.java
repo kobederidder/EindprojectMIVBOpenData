@@ -20,7 +20,7 @@ public class RouteAdapter extends BaseAdapter {
 
     private ArrayList<Route> listVoorAdapter;
     private static LayoutInflater inflater;
-
+    private ViewHolder viewHolder;
     public void addAll(ArrayList<Route> mRoute) {
         listVoorAdapter = mRoute;
     }
@@ -54,10 +54,10 @@ public class RouteAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+
 
         if(convertView == null) {
-            convertView = inflater.inflate(R.layout.row_route, null);
+            convertView = inflater.inflate(R.layout.row_route, parent, false);
 
             viewHolder = new ViewHolder();
             viewHolder.tvRouteID = (TextView) convertView.findViewById(R.id.tv_route_id);
@@ -66,11 +66,12 @@ public class RouteAdapter extends BaseAdapter {
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
+        }
 
             Route temp = listVoorAdapter.get(position);
             viewHolder.tvRouteID.setText(temp.getRoute_short_name());
             viewHolder.tvRouteDirections.setText(temp.getRoute_long_name());
-        }
+
         return convertView;
     }
 
