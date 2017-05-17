@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EindprojectMIVBOpenData</string>
+    <string name="app_name"> STIB - MIVB </string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -12,7 +12,7 @@
     <string name="btn_info_str">Info</string>
     <string name="btn_fixed_adress_str">Vast bestemmingsadres</string>
     <string name="btn_zoeken_str">Zoeken</string>
-    <string name="tv_datum_uur_str">Datum en uur</string>
+    <string name="tv_datum_uur_str">Datum & Uur van vertrek</string>
     <string name="tv_bestemming_str">Bestemming</string>
     <string name="tv_vertrek_str">Vertrek</string>
 </resources>
