@@ -61,10 +61,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private RouteListFragment mRoute = RouteListFragment.newInstance();
     private MapFragment mapFragment = new MapFragment();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_main);
+        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -125,13 +126,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id)
         {
+            /*
             case R.id.nav_home:
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, homeFragment)
                         .addToBackStack(FRAGMENT_BACKSTACK)
                         .commit();
             break;
-
+            */
             case R.id.nav_list:
             ListFragment listFragment = ListFragment.newInstance();
                 getFragmentManager().beginTransaction()
