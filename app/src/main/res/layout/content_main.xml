@@ -10,8 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="ehb.be.eindprojectmivbopendata.activities.MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    tools:context="ehb.be.eindprojectmivbopendata.activities.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -35,32 +34,32 @@
         android:text="@string/tv_bestemming_str" />
 
     <EditText
+        android:id="@+id/et_vertrek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/et_vertrek"
-        android:layout_below="@+id/tv_vertrek"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_vertrek"
         android:layout_marginLeft="18dp"
         android:layout_marginStart="18dp"
+        android:ems="10"
         android:hint="Midi"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:inputType="textAutoComplete" />
 
     <EditText
+        android:id="@+id/et_bestemming"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/et_bestemming"
-        android:layout_below="@+id/tv_bestemming"
         android:layout_alignLeft="@+id/et_vertrek"
-        android:layout_alignStart="@+id/et_vertrek"
-        android:hint="Atomium"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignStart="@+id/et_vertrek"
+        android:layout_below="@+id/tv_bestemming"
+        android:ems="10"
+        android:hint="Atomium"
+        android:inputType="textAutoComplete|textPersonName" />
 
     <TextView
         android:layout_width="wrap_content"

@@ -27,17 +27,15 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import ehb.be.eindprojectmivbopendata.R;
+import ehb.be.eindprojectmivbopendata.fragments.SettingsFragment;
+import ehb.be.eindprojectmivbopendata.fragments.ZoekenFragment;
 import ehb.be.eindprojectmivbopendata.fragments.ListFragment;
 import ehb.be.eindprojectmivbopendata.fragments.MapFragment;
 import ehb.be.eindprojectmivbopendata.fragments.RouteListFragment;
 import ehb.be.eindprojectmivbopendata.requests.InputStreamRequest;
 import ehb.be.eindprojectmivbopendata.parsers.AgencyParser;
-import ehb.be.eindprojectmivbopendata.parsers.CalendarParser;
-import ehb.be.eindprojectmivbopendata.parsers.Calendar_DatesParser;
 import ehb.be.eindprojectmivbopendata.parsers.RouteParser;
-import ehb.be.eindprojectmivbopendata.parsers.ShapeParser;
 import ehb.be.eindprojectmivbopendata.parsers.StopParser;
-import ehb.be.eindprojectmivbopendata.parsers.TripParser;
 import ehb.be.eindprojectmivbopendata.source.Stop;
 
 import com.android.volley.Request;
@@ -45,12 +43,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -60,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private GoogleMap mMap;
     private RouteListFragment mRoute = RouteListFragment.newInstance();
     private MapFragment mapFragment = new MapFragment();
+    private ZoekenFragment zoekenFragment = new ZoekenFragment();
+    private SettingsFragment settingsFragment = new SettingsFragment();
 
 
     @Override
@@ -126,14 +121,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch (id)
         {
-            /*
+        //HOME = zoeken functie met vertrek & bestemmingspunt, datum en uur
             case R.id.nav_home:
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.container, homeFragment)
+                        .replace(R.id.container, zoekenFragment)
                         .addToBackStack(FRAGMENT_BACKSTACK)
                         .commit();
             break;
-            */
+        //Ga naar lijst weergave
             case R.id.nav_list:
             ListFragment listFragment = ListFragment.newInstance();
                 getFragmentManager().beginTransaction()
@@ -141,19 +136,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .addToBackStack(FRAGMENT_BACKSTACK)
                         .commit();
             break;
-
+        //Ga naar Map weergave
             case R.id.nav_map:
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, mapFragment)
                         .addToBackStack(FRAGMENT_BACKSTACK)
                         .commit();
             break;
-
+        //Ga naar meer gedetailleerde listView van routes
             case R.id.nav_detaillist:
                 getFragmentManager().beginTransaction()
                         .replace(R.id.container, mRoute)
                         .addToBackStack(FRAGMENT_BACKSTACK)
                         .commit();
+            break;
+
+        //Ga naar Opties (a.k.a. Settings, Preferences)
+            case R.id.nav_settings:
+                getFragmentManager().beginTransaction()
+                    .replace(R.id.container, settingsFragment)
+                    .addToBackStack(FRAGMENT_BACKSTACK)
+                    .commit();
             break;
         }
 

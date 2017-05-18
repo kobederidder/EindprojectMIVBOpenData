@@ -24,8 +24,8 @@ public class StopParser {
     private StopParser() {
     }
     //needed stuff
-    private ArrayList<Stop> mStopList = new ArrayList<> ();
-    private final String TAG = "Stop";
+    public ArrayList<Stop> mStopList = new ArrayList<> ();
+    public final String TAG = "Stop";
 
     public void parseStop(FileInputStream rid) {
         BufferedReader rawReader = new BufferedReader(new InputStreamReader(rid));
