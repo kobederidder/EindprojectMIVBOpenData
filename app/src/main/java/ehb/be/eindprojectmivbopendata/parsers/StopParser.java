@@ -39,9 +39,9 @@ public class StopParser {
             e.printStackTrace();
         }
         //first row in file are columns
-        //mStopList.remove(0);
+        mStopList.remove(0);
 
-        printRoute();
+        //printRoute();
 
     }
 

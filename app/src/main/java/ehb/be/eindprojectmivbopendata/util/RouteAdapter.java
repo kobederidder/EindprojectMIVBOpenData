@@ -1,12 +1,14 @@
 package ehb.be.eindprojectmivbopendata.util;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import ehb.be.eindprojectmivbopendata.R;
@@ -70,7 +72,14 @@ public class RouteAdapter extends BaseAdapter {
 
             Route temp = listVoorAdapter.get(position);
             viewHolder.tvRouteID.setText(temp.getRoute_short_name());
-            viewHolder.tvRouteDirections.setText(temp.getRoute_long_name());
+            try {
+                viewHolder.tvRouteID.setBackgroundColor(Color.parseColor("#" + temp.getRoute_color()));
+                viewHolder.tvRouteID.setTextColor(Color.parseColor("#"+temp.getRoute_text_color()));
+            } catch (NumberFormatException ex) {
+                viewHolder.tvRouteID.setBackgroundColor(Color.parseColor("#AAAAAA"));
+                viewHolder.tvRouteID.setTextColor(Color.parseColor("#000000"));
+            }
+            viewHolder.tvRouteDirections.setText(temp.getRoute_long_name().replace("\"", ""));
 
         return convertView;
     }

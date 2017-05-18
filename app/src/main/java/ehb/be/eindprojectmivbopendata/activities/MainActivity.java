@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Response.ErrorListener responseGETErrorListener = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
-            Log.i("error in response", "blabla");
+            Log.i("error in response", "nog is proberen?");
         }
     };
 
