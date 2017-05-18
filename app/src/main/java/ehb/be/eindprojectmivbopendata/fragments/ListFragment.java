@@ -17,6 +17,7 @@ import ehb.be.eindprojectmivbopendata.R;
 import ehb.be.eindprojectmivbopendata.parsers.StopParser;
 import ehb.be.eindprojectmivbopendata.source.Route;
 import ehb.be.eindprojectmivbopendata.source.Stop;
+import ehb.be.eindprojectmivbopendata.util.DatabaseDAO;
 import ehb.be.eindprojectmivbopendata.util.StopAdapter;
 
 
@@ -27,6 +28,7 @@ import ehb.be.eindprojectmivbopendata.util.StopAdapter;
 public class ListFragment extends Fragment {
     private SharedPreferences sharedPreferences;
 
+    DatabaseDAO dao;
     ArrayList<Stop> mStop = new ArrayList<>();
     StopAdapter sa;
 
@@ -55,9 +57,11 @@ public class ListFragment extends Fragment {
 
         ListView lv = (ListView) rootView.findViewById(R.id.lv_list);
 
+        dao = new DatabaseDAO(getActivity());
+
         // Route r = (Route) getArguments().getSerializable("route");
 
-        sa = new StopAdapter(getActivity(), mStop);
+        sa = new StopAdapter(getActivity(), dao.getAllStops());
         lv.setAdapter(sa);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         addAllStops();

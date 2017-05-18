@@ -21,6 +21,7 @@ import ehb.be.eindprojectmivbopendata.parsers.RouteParser;
 import ehb.be.eindprojectmivbopendata.parsers.StopParser;
 import ehb.be.eindprojectmivbopendata.source.Route;
 import ehb.be.eindprojectmivbopendata.source.Stop;
+import ehb.be.eindprojectmivbopendata.util.DatabaseDAO;
 import ehb.be.eindprojectmivbopendata.util.RouteAdapter;
 import ehb.be.eindprojectmivbopendata.util.StopAdapter;
 
@@ -33,6 +34,7 @@ public class RouteListFragment extends Fragment implements AdapterView.OnItemCli
     private final String FRAGMENT_BACKSTACK = "fragment_backstack";
     ArrayList<Route> mRoute = new ArrayList<>();
     ArrayList<Stop> mStop = new ArrayList<>();
+    DatabaseDAO dao;
     RouteAdapter aa;
     StopAdapter sa;
     ListView lvRoutes;
@@ -72,14 +74,16 @@ public class RouteListFragment extends Fragment implements AdapterView.OnItemCli
 
         View rootView = inflater.inflate(R.layout.fragment_route_list, container, false);
         ListView lv = (ListView) rootView.findViewById(R.id.lv_routelist);
-
-        aa = new RouteAdapter(getActivity(), mRoute);
+        dao = new DatabaseDAO(getActivity());
+        aa = new RouteAdapter(getActivity(), dao.getAllRoutes());
         lv.setAdapter(aa);
 
         lv.setOnItemClickListener(this);
 
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+
 
         return rootView;
     }

@@ -21,6 +21,8 @@ public class Stop {
         this.location_type = temp[8];
     }
 
+    public Stop() {
+    }
 
     public String getStop_id() {
         return stop_id;

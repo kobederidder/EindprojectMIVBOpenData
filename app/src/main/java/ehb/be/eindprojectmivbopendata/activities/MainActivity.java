@@ -1,7 +1,9 @@
 package ehb.be.eindprojectmivbopendata.activities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import android.support.design.widget.NavigationView;
@@ -34,21 +36,32 @@ import ehb.be.eindprojectmivbopendata.fragments.MapFragment;
 import ehb.be.eindprojectmivbopendata.fragments.RouteListFragment;
 import ehb.be.eindprojectmivbopendata.requests.InputStreamRequest;
 import ehb.be.eindprojectmivbopendata.parsers.AgencyParser;
+import ehb.be.eindprojectmivbopendata.parsers.CalendarParser;
+import ehb.be.eindprojectmivbopendata.parsers.Calendar_DatesParser;
 import ehb.be.eindprojectmivbopendata.parsers.RouteParser;
+import ehb.be.eindprojectmivbopendata.parsers.ShapeParser;
 import ehb.be.eindprojectmivbopendata.parsers.StopParser;
+import ehb.be.eindprojectmivbopendata.parsers.TripParser;
+import ehb.be.eindprojectmivbopendata.source.Agency;
 import ehb.be.eindprojectmivbopendata.source.Stop;
+import ehb.be.eindprojectmivbopendata.util.DatabaseDAO;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ArrayList<Stop> mStopList = new ArrayList<>();
-
+    private SharedPreferences sharedPreferences;
     private final String FRAGMENT_BACKSTACK = "fragment_backstack";
     private GoogleMap mMap;
     private RouteListFragment mRoute = RouteListFragment.newInstance();
@@ -72,6 +85,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if(sharedPreferences.getBoolean("first", true)) {
+            downloadZIP();
+
+        }
+
 
         getFragmentManager().beginTransaction()
                 .replace(R.id.container, mRoute)
@@ -231,12 +252,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Response.ErrorListener responseGETErrorListener = new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {
-            Log.i("error in response", "nog is proberen?");
+            Log.i("error in response", error.toString());
         }
     };
 
     private void parseFiles() {
+        DatabaseDAO dao = new DatabaseDAO(getApplication());
         try {
+
             AgencyParser.getInstance()
                     .parseAgency(new FileInputStream(getCacheDir()+File.pathSeparator+"agency.txt"));
             //CalendarParser.getInstance()
@@ -245,19 +268,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
              //       .parseCalDates(new FileInputStream(getCacheDir()+File.pathSeparator+"calendar_dates.txt"));
             RouteParser.getInstance()
                    .parseRoute(new FileInputStream(getCacheDir()+File.pathSeparator+"routes.txt"), this);
+            if(sharedPreferences.getBoolean("done_routes", false)) {
+                dao.insertAllRoutes(RouteParser.getInstance().getmRouteList());
+                sharedPreferences.edit().putBoolean("done_routes", true).apply();
+            }
             //ShapeParser.getInstance()
             //        .parseShape(new FileInputStream(getCacheDir()+File.pathSeparator+"shapes.txt"));
             StopParser.getInstance()
                     .parseStop(new FileInputStream(getCacheDir()+File.pathSeparator+"stops.txt"));
+            if(sharedPreferences.getBoolean("done_stops", false)) {
+                dao.insertAllStops(StopParser.getInstance().getmStopList());
+                sharedPreferences.edit().putBoolean("done_stops", true).apply();
+            }
             //StoptimeParser.getInstance()
             //        .parseStoptime(new FileInputStream(getCacheDir()+File.pathSeparator+"stop_times.txt"));
             //TripParser.getInstance()
             //        .parseTrip(new FileInputStream(getCacheDir()+File.pathSeparator+"trips.txt"));
+            sharedPreferences.edit().putBoolean("first", false).apply();
             mRoute.addAll();
             mapFragment.getAllStopsOnMap();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        dao.close();
 
         Toast.makeText(this, "Download finished", Toast.LENGTH_SHORT).show();
 

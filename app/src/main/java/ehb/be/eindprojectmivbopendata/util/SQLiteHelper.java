@@ -55,6 +55,12 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 + COLUMN_ROUTE_DESC + " TEXT, " + COLUMN_ROUTE_TYPE + " TEXT, "
                 + COLUMN_ROUTE_URL + " TEXT, " + COLUMN_ROUTE_COLOR + " TEXT, " + COLUMN_ROUTE_TEXT_COLOR + " TEXT" + " );"
         );
+        db.execSQL("CREATE TABLE " + TABLE_STOPS + " (" + COLUMN_STOP_ID + " TEXT NOT NULL, "
+                + COLUMN_STOP_CODE + " TEXT NOT NULL, " + COLUMN_STOP_NAME + " TEXT NOT NULL, "
+                + COLUMN_STOP_DESC + " TEXT, " + COLUMN_STOP_LAT+ " TEXT NOT NULL, "
+                + COLUMN_STOP_LON + " TEXT NOT NULL, " + COLUMN_ZONE_ID + " TEXT, " + COLUMN_STOP_URL + " TEXT, "
+                + COLUMN_LOCATION_TYPE + " TEXT " + " );"
+        );
     }
 
     @Override
