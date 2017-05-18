@@ -23,7 +23,9 @@ public class RouteAdapter extends BaseAdapter {
     private ArrayList<Route> listVoorAdapter;
     private static LayoutInflater inflater;
     private ViewHolder viewHolder;
-    public void addAll(ArrayList<Route> mRoute) {
+
+
+    public void addAllRoutes(ArrayList<Route> mRoute) {
         listVoorAdapter = mRoute;
     }
 

@@ -1,10 +1,12 @@
 package ehb.be.eindprojectmivbopendata.source;
 
+import java.io.Serializable;
+
 /**
  * Created by mobapp10 on 09/05/17.
  */
 
-public class Route {
+public class Route implements Serializable {
     String route_id, route_short_name, route_long_name, route_desc, route_type, route_url, route_color, route_text_color;
 
     public Route(String string) {

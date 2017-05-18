@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //params voor header
         HashMap<String, String> params = new HashMap<>();
 
-        params.put("Authorization:", "Bearer c2e6a689138375adf8463707c82749dc");
+        params.put("Authorization:", "Bearer 7306bfb3f84719d43abd0e69405b211a");
         Toast.makeText(this, "download accessed", Toast.LENGTH_SHORT).show();
         //headers kan je niet setten, fast and dirty de klasse overschrijven
         InputStreamRequest getRequest = new InputStreamRequest(Request.Method.GET,

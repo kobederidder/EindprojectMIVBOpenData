@@ -15,7 +15,9 @@ import java.util.ArrayList;
 
 import ehb.be.eindprojectmivbopendata.R;
 import ehb.be.eindprojectmivbopendata.parsers.StopParser;
+import ehb.be.eindprojectmivbopendata.source.Route;
 import ehb.be.eindprojectmivbopendata.source.Stop;
+import ehb.be.eindprojectmivbopendata.util.StopAdapter;
 
 
 /**
@@ -23,17 +25,25 @@ import ehb.be.eindprojectmivbopendata.source.Stop;
  */
 
 public class ListFragment extends Fragment {
-
     private SharedPreferences sharedPreferences;
 
     ArrayList<Stop> mStop = new ArrayList<>();
-    ArrayAdapter<Stop> aa;
+    StopAdapter sa;
 
     public ListFragment() {
+
     }
 
     public static ListFragment newInstance() {
         ListFragment fragment = new ListFragment();
+        return fragment;
+    }
+
+    public static ListFragment newInstance(Route r) {
+        ListFragment fragment = new ListFragment();
+        Bundle args = new Bundle();
+        args.putSerializable("route", r);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -45,20 +55,26 @@ public class ListFragment extends Fragment {
 
         ListView lv = (ListView) rootView.findViewById(R.id.lv_list);
 
-        aa = new ArrayAdapter<Stop>(getActivity(), android.R.layout.simple_list_item_1,mStop);
+        // Route r = (Route) getArguments().getSerializable("route");
 
-        lv.setAdapter(aa);
-
+        sa = new StopAdapter(getActivity(), mStop);
+        lv.setAdapter(sa);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
+        addAllStops();
         return rootView;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        aa.addAll(StopParser.getInstance().getmStopList());
         // aa.addAll(CalendarParser.getInstance().getmCalendarList());
-        aa.notifyDataSetChanged();
+        sa.notifyDataSetChanged();
+    }
+
+    public void addAllStops() {
+        mStop = StopParser.getInstance().getmStopList();
+
+        sa.addAllStops(mStop);
+        sa.notifyDataSetChanged();
     }
 }
