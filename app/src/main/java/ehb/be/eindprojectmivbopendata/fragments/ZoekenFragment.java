@@ -23,6 +23,7 @@ import java.util.Locale;
 
 import ehb.be.eindprojectmivbopendata.parsers.StopParser;
 import ehb.be.eindprojectmivbopendata.R;
+import ehb.be.eindprojectmivbopendata.source.Stop;
 
 /**
   Created by mobapp06 on 16/05/17.
@@ -40,7 +41,7 @@ public class ZoekenFragment extends Fragment{
     private String uur = new SimpleDateFormat("hh:mm").format(new Date());
     //TO DO - UUR FORMATEREN NAAR EUROPESE WEERGAVE (iets met functie 'LOCALE' ? )
 
-    ArrayList<> haltes = StopParser.getInstance().mStopList;
+    ArrayList<Stop> haltes = StopParser.getInstance().mStopList;
 
     public ZoekenFragment() {
     }
@@ -51,7 +52,7 @@ public class ZoekenFragment extends Fragment{
     }
 
     public void geefVertrekHalte(){
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, haltes);
+        ArrayAdapter<Stop> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, haltes);
         actvVertrek.setAdapter(adapter);
     }
 
