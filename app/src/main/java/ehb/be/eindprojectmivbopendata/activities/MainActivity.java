@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if(sharedPreferences.getBoolean("first", true)) {
             downloadZIP();
-
+            sharedPreferences.edit().putBoolean("first", false).apply();
         }
 
 
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .addToBackStack(FRAGMENT_BACKSTACK)
                 .commit();
 
-        downloadZIP();
+
     }
 
     @Override

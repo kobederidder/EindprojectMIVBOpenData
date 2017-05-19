@@ -20,6 +20,7 @@ import ehb.be.eindprojectmivbopendata.source.Stop;
 public class DatabaseDAO {
     private SQLiteHelper dbHelper;
     private SQLiteDatabase db;
+    ContentValues mValues;
 
     public DatabaseDAO(Context c) {
         dbHelper = new SQLiteHelper(c);
@@ -33,7 +34,7 @@ public class DatabaseDAO {
     public boolean insertEntry() {
         //TODO dit nog in orde brengen
         if(db == null) {
-            ContentValues mValues = new ContentValues();
+            mValues = new ContentValues();
 
             return false;
         }
@@ -60,7 +61,7 @@ public class DatabaseDAO {
 
     public boolean insertAllRoutes(ArrayList<Route> routeArrayList) {
 
-        ContentValues mValues = new ContentValues();
+        ContentValues mValuesRoutes = new ContentValues();
         for(Route r : routeArrayList) {
             mValues.put(SQLiteHelper.getColumnRouteId(), r.getRoute_id());
             mValues.put(SQLiteHelper.getColumnRouteShortName(), r.getRoute_short_name());
@@ -113,7 +114,7 @@ public class DatabaseDAO {
 
     public boolean insertAllStops(ArrayList<Stop> stopArrayList) {
 
-        ContentValues mValues = new ContentValues();
+        ContentValues mValuesStops = new ContentValues();
         for(Stop s : stopArrayList) {
             mValues.put(SQLiteHelper.getColumnStopId(), s.getStop_id());
             mValues.put(SQLiteHelper.getColumnStopCode(), s.getStop_code());
