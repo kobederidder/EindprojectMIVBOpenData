@@ -88,13 +88,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-
-
-
-
+        if(sharedPreferences.getBoolean("first", true)) {
+            downloadZIP();
+        }
 
         getFragmentManager().beginTransaction()
-                .replace(R.id.container, mRoute)
+                .replace(R.id.container, zoekenFragment)
                 .addToBackStack(FRAGMENT_BACKSTACK)
                 .commit();
 
@@ -266,17 +265,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
              //       .parseCalendar(new FileInputStream(getCacheDir()+File.pathSeparator+"calendar.txt"));
             //Calendar_DatesParser.getInstance()
              //       .parseCalDates(new FileInputStream(getCacheDir()+File.pathSeparator+"calendar_dates.txt"));
+            if(!sharedPreferences.getBoolean("done_routes", false)) {
             RouteParser.getInstance()
                    .parseRoute(new FileInputStream(getCacheDir()+File.pathSeparator+"routes.txt"), this);
-            if(sharedPreferences.getBoolean("done_routes", false)) {
                 dao.insertAllRoutes(RouteParser.getInstance().getmRouteList());
                 sharedPreferences.edit().putBoolean("done_routes", true).apply();
             }
             //ShapeParser.getInstance()
             //        .parseShape(new FileInputStream(getCacheDir()+File.pathSeparator+"shapes.txt"));
+            if(!sharedPreferences.getBoolean("done_stops", false)) {
             StopParser.getInstance()
                     .parseStop(new FileInputStream(getCacheDir()+File.pathSeparator+"stops.txt"));
-            if(sharedPreferences.getBoolean("done_stops", false)) {
                 dao.insertAllStops(StopParser.getInstance().getmStopList());
                 sharedPreferences.edit().putBoolean("done_stops", true).apply();
             }

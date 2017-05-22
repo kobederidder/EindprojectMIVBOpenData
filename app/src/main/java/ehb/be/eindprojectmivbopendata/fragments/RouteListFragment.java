@@ -112,7 +112,7 @@ public class RouteListFragment extends Fragment implements AdapterView.OnItemCli
     }
 
     public void addAll() {
-        mRoute = RouteParser.getInstance().getmRouteList();
+        mRoute = dao.getAllRoutes();
 
         aa.addAllRoutes(mRoute);
         aa.notifyDataSetChanged();

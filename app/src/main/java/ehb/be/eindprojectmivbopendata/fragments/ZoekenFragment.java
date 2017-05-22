@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import java.util.Locale;
 import ehb.be.eindprojectmivbopendata.parsers.StopParser;
 import ehb.be.eindprojectmivbopendata.R;
 import ehb.be.eindprojectmivbopendata.source.Stop;
+import ehb.be.eindprojectmivbopendata.util.DatabaseDAO;
 
 /**
   Created by mobapp06 on 16/05/17.
@@ -41,7 +43,8 @@ public class ZoekenFragment extends Fragment{
     private String uur = new SimpleDateFormat("hh:mm").format(new Date());
     //TO DO - UUR FORMATEREN NAAR EUROPESE WEERGAVE (iets met functie 'LOCALE' ? )
 
-    ArrayList<Stop> haltes = StopParser.getInstance().mStopList;
+    ArrayList<Stop> haltes;
+    DatabaseDAO dao;
 
     public ZoekenFragment() {
     }
@@ -51,9 +54,21 @@ public class ZoekenFragment extends Fragment{
         return fragment;
     }
 
-    public void geefVertrekHalte(){
-        ArrayAdapter<Stop> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, haltes);
+    public void geefVertrekHalte() {
+        dao = new DatabaseDAO(getActivity());
+        haltes = dao.getAllStops();
+        Log.d("AUTOCOMPLETE", String.valueOf(haltes));
+
+        Log.d("AUTOCOMPLETE", "build autocomplete");
+        ArrayList<String> halteNamen = new ArrayList<>();
+        for (Stop temp : haltes) {
+            halteNamen.add(temp.getStop_name().replace("\"", ""));
+            Log.d("AUTOCOMPLETE", temp.getStop_name());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.select_dialog_item, halteNamen);
         actvVertrek.setAdapter(adapter);
+        actvVertrek.setThreshold(1);
     }
 
     @Nullable
@@ -79,7 +94,7 @@ public class ZoekenFragment extends Fragment{
 
         btnZoeken = (Button) rootView.findViewById(R.id.btn_zoeken);
 
-
+        geefVertrekHalte();
 
         return rootView;
     }
