@@ -45,6 +45,7 @@ public class RouteParser {
 
         DatabaseDAO dao = new DatabaseDAO(c);
         dao.insertAllRoutes(mRouteList);
+
         dao.close();
     }
 

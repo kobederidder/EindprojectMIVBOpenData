@@ -88,10 +88,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if(sharedPreferences.getBoolean("first", true)) {
-            downloadZIP();
-            sharedPreferences.edit().putBoolean("first", false).apply();
-        }
+
+
+
 
 
         getFragmentManager().beginTransaction()
@@ -99,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .addToBackStack(FRAGMENT_BACKSTACK)
                 .commit();
 
+        downloadZIP();
 
     }
 
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //params voor header
         HashMap<String, String> params = new HashMap<>();
 
-        params.put("Authorization:", "Bearer ae00f0b7bbc494854f5cfddcb054aad6");
+        params.put("Authorization:", "Bearer 81f11d4c20401a22a38e0138c3713d66");
         Toast.makeText(this, "download accessed", Toast.LENGTH_SHORT).show();
         //headers kan je niet setten, fast and dirty de klasse overschrijven
         InputStreamRequest getRequest = new InputStreamRequest(Request.Method.GET,

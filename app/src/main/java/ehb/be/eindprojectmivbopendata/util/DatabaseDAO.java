@@ -63,16 +63,16 @@ public class DatabaseDAO {
 
         ContentValues mValuesRoutes = new ContentValues();
         for(Route r : routeArrayList) {
-            mValues.put(SQLiteHelper.getColumnRouteId(), r.getRoute_id());
-            mValues.put(SQLiteHelper.getColumnRouteShortName(), r.getRoute_short_name());
-            mValues.put(SQLiteHelper.getColumnRouteLongName(), r.getRoute_long_name());
-            mValues.put(SQLiteHelper.getColumnRouteDesc(), r.getRoute_desc());
-            mValues.put(SQLiteHelper.getColumnRouteType(), r.getRoute_type());
-            mValues.put(SQLiteHelper.getColumnRouteUrl(), r.getRoute_url());
-            mValues.put(SQLiteHelper.getColumnRouteColor(), r.getRoute_color());
-            mValues.put(SQLiteHelper.getColumnRouteTextColor(), r.getRoute_text_color());
+            mValuesRoutes.put(SQLiteHelper.getColumnRouteId(), r.getRoute_id());
+            mValuesRoutes.put(SQLiteHelper.getColumnRouteShortName(), r.getRoute_short_name());
+            mValuesRoutes.put(SQLiteHelper.getColumnRouteLongName(), r.getRoute_long_name());
+            mValuesRoutes.put(SQLiteHelper.getColumnRouteDesc(), r.getRoute_desc());
+            mValuesRoutes.put(SQLiteHelper.getColumnRouteType(), r.getRoute_type());
+            mValuesRoutes.put(SQLiteHelper.getColumnRouteUrl(), r.getRoute_url());
+            mValuesRoutes.put(SQLiteHelper.getColumnRouteColor(), r.getRoute_color());
+            mValuesRoutes.put(SQLiteHelper.getColumnRouteTextColor(), r.getRoute_text_color());
 
-            long resultID = db.insert(SQLiteHelper.getTableRoutes(), null, mValues);
+            long resultID = db.insert(SQLiteHelper.getTableRoutes(), null, mValuesRoutes);
 
             if(resultID == -1)
                 return false;
@@ -116,17 +116,17 @@ public class DatabaseDAO {
 
         ContentValues mValuesStops = new ContentValues();
         for(Stop s : stopArrayList) {
-            mValues.put(SQLiteHelper.getColumnStopId(), s.getStop_id());
-            mValues.put(SQLiteHelper.getColumnStopCode(), s.getStop_code());
-            mValues.put(SQLiteHelper.getColumnStopName(), s.getStop_name());
-            mValues.put(SQLiteHelper.getColumnStopDesc(), s.getStop_desc());
-            mValues.put(SQLiteHelper.getColumnStopLat(), s.getStop_lat());
-            mValues.put(SQLiteHelper.getColumnStopLon(), s.getStop_lon());
-            mValues.put(SQLiteHelper.getColumnZoneId(), s.getZone_id());
-            mValues.put(SQLiteHelper.getColumnStopUrl(), s.getStop_url());
-            mValues.put(SQLiteHelper.getColumnLocationType(), s.getLocation_type());
+            mValuesStops.put(SQLiteHelper.getColumnStopId(), s.getStop_id());
+            mValuesStops.put(SQLiteHelper.getColumnStopCode(), s.getStop_code());
+            mValuesStops.put(SQLiteHelper.getColumnStopName(), s.getStop_name());
+            mValuesStops.put(SQLiteHelper.getColumnStopDesc(), s.getStop_desc());
+            mValuesStops.put(SQLiteHelper.getColumnStopLat(), s.getStop_lat());
+            mValuesStops.put(SQLiteHelper.getColumnStopLon(), s.getStop_lon());
+            mValuesStops.put(SQLiteHelper.getColumnZoneId(), s.getZone_id());
+            mValuesStops.put(SQLiteHelper.getColumnStopUrl(), s.getStop_url());
+            mValuesStops.put(SQLiteHelper.getColumnLocationType(), s.getLocation_type());
 
-            long resultID = db.insert(SQLiteHelper.getTableRoutes(), null, mValues);
+            long resultID = db.insert(SQLiteHelper.getTableRoutes(), null, mValuesStops);
 
             if(resultID == -1)
                 return false;
