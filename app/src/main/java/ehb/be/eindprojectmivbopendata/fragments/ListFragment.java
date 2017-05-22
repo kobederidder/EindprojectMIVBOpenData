@@ -76,7 +76,7 @@ public class ListFragment extends Fragment {
     }
 
     public void addAllStops() {
-        mStop = StopParser.getInstance().getmStopList();
+        mStop = dao.getAllStops();
 
         sa.addAllStops(mStop);
         sa.notifyDataSetChanged();
