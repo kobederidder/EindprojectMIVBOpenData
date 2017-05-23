@@ -49,7 +49,7 @@ public class RouteListFragment extends Fragment implements AdapterView.OnItemCli
         View rootView = inflater.inflate(R.layout.fragment_route_list, container, false);
         ListView lv = (ListView) rootView.findViewById(R.id.lv_routelist);
         dao = new DatabaseDAO(getActivity());
-        aa = new RouteAdapter(getActivity(), dao.getAllRoutes());
+        aa = new RouteAdapter(getActivity(), dao.getDistinctRoutes());
         lv.setAdapter(aa);
 
         lv.setOnItemClickListener(this);
@@ -65,7 +65,7 @@ public class RouteListFragment extends Fragment implements AdapterView.OnItemCli
     }
 
     public void addAll() {
-        mRoute = dao.getAllRoutes();
+        mRoute = dao.getDistinctRoutes();
 
         aa.addAllRoutes(mRoute);
         aa.notifyDataSetChanged();

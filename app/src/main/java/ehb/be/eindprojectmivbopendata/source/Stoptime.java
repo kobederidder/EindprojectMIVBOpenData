@@ -19,6 +19,8 @@ public class Stoptime {
         this.drop_off_type = temp[6];
     }
 
+    public Stoptime() {
+    }
 
     public String getTrip_id() {
         return trip_id;
