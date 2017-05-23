@@ -17,7 +17,4 @@ public class SettingsFragment extends Fragment {
         SettingsFragment fragment = new SettingsFragment();
         return fragment;
     }
-
-
-
 }
