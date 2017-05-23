@@ -24,14 +24,11 @@ import ehb.be.eindprojectmivbopendata.util.StopAdapter;
  */
 
 public class ListFragment extends Fragment {
-    private SharedPreferences sharedPreferences;
-
     DatabaseDAO dao;
     ArrayList<Stop> mStop = new ArrayList<>();
     StopAdapter sa;
 
     public ListFragment() {
-
     }
 
     public static ListFragment newInstance() {
@@ -56,11 +53,9 @@ public class ListFragment extends Fragment {
 
         dao = new DatabaseDAO(getActivity());
 
-        // Route r = (Route) getArguments().getSerializable("route");
-
         sa = new StopAdapter(getActivity(), dao.getDistinctStopNames());
         lv.setAdapter(sa);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
         addAllStops();
         return rootView;
     }
@@ -68,13 +63,11 @@ public class ListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        // aa.addAll(CalendarParser.getInstance().getmCalendarList());
         sa.notifyDataSetChanged();
     }
 
     public void addAllStops() {
         mStop = dao.getDistinctStopNames();
-
         sa.addAllStops(mStop);
         sa.notifyDataSetChanged();
     }
