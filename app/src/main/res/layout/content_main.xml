@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="be.ehb.mivbproject.activities.MainActivity">
+    tools:context="ehb.be.eindprojectmivbopendata.activities.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,8 +45,8 @@
         android:layout_marginLeft="18dp"
         android:layout_marginStart="18dp"
         android:ems="10"
-        android:hint="Vertrek"
-        android:dropDownHeight="300dp"/>
+        android:hint="Midi"
+        android:inputType="textAutoComplete" />
 
     <AutoCompleteTextView
         android:id="@+id/et_bestemming"
@@ -58,44 +58,8 @@
         android:layout_alignStart="@+id/et_vertrek"
         android:layout_below="@+id/tv_bestemming"
         android:ems="10"
-        android:hint="Aankomst"
+        android:hint="Atomium"
         android:inputType="textAutoComplete|textPersonName" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_datum_uur"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:textSize="18sp"
-        android:layout_below="@+id/et_bestemming"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="@string/tv_datum_uur_str" />
-
-    <EditText
-        android:layout_width="125dp"
-        android:inputType="date"
-        android:ems="10"
-        android:layout_below="@+id/tv_datum_uur"
-        android:layout_alignLeft="@+id/et_bestemming"
-        android:layout_alignStart="@+id/et_bestemming"
-        android:id="@+id/et_datum"
-        android:hint="Vandaag"
-        android:layout_height="40dp" />
-
-    <EditText
-        android:layout_width="125dp"
-        android:layout_height="40dp"
-        android:inputType="time"
-        android:ems="10"
-        android:id="@+id/et_uur"
-        android:hint="=(hour)"
-        android:layout_alignBaseline="@+id/et_datum"
-        android:layout_alignBottom="@+id/et_datum"
-        android:layout_toRightOf="@+id/et_datum"
-        android:layout_toEndOf="@+id/et_datum"
-        android:layout_marginLeft="35dp"
-        android:layout_marginStart="35dp" />
 
     <Button
         android:layout_width="match_parent"
@@ -108,5 +72,26 @@
         android:background="@color/colorPrimary"
         android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
         android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/btn_datum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/et_bestemming"
+        android:layout_alignStart="@+id/et_bestemming"
+        android:layout_below="@+id/et_bestemming"
+        android:layout_marginTop="29dp"
+        android:text="@string/btn_datum_str" />
+
+    <Button
+        android:id="@+id/btn_uur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/btn_datum"
+        android:layout_marginEnd="41dp"
+        android:layout_marginRight="41dp"
+        android:text="@string/btn_uur_str" />
 
 </RelativeLayout>
