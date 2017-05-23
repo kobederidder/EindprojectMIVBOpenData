@@ -58,6 +58,22 @@ public class DatabaseDAO {
         return allRoutes;
     }
 
+    public ArrayList<Route> getDistinctRoutes(){
+        ArrayList<Route> allDistinctRoutes = new ArrayList<>();
+
+        Cursor cursorDistinctRoutes = db.query(SQLiteHelper.getTableRoutes(), SQLiteHelper.getColumnsRoutes(), null, null, SQLiteHelper.getColumnRouteId(), null, null);
+
+        cursorDistinctRoutes.moveToFirst();
+        while (!cursorDistinctRoutes.isAfterLast()) {
+            Route temp = cursorToRoute(cursorDistinctRoutes);
+            allDistinctRoutes.add(temp);
+            cursorDistinctRoutes.moveToNext();
+        }
+        cursorDistinctRoutes.close();
+
+        return allDistinctRoutes;
+    }
+
     public boolean insertAllRoutes(ArrayList<Route> routeArrayList) {
 
         ContentValues mValues = new ContentValues();
