@@ -30,11 +30,8 @@ public class RouteListFragment extends Fragment implements AdapterView.OnItemCli
     private SharedPreferences sharedPreferences;
     private final String FRAGMENT_BACKSTACK = "fragment_backstack";
     ArrayList<Route> mRoute = new ArrayList<>();
-    ArrayList<Stop> mStop = new ArrayList<>();
     DatabaseDAO dao;
     RouteAdapter aa;
-    StopAdapter sa;
-    ListView lvRoutes;
 
     public RouteListFragment() {
     }
@@ -43,28 +40,8 @@ public class RouteListFragment extends Fragment implements AdapterView.OnItemCli
         RouteListFragment fragment = new RouteListFragment();
         return fragment;
     }
-    /*
-        @Override
-        public void onCreate(@Nullable Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
 
-            aa = new RouteAdapter(getActivity(), mRoute);
 
-            //lvRoutes.setAdapter(aa);
-            lvRoutes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Fragment newFragment = new ListFragment();
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-                    transaction.replace(R.id.container, newFragment);
-                    transaction.addToBackStack(null);
-
-                    transaction.commit();
-                }
-            });
-        }
-    */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -77,35 +54,14 @@ public class RouteListFragment extends Fragment implements AdapterView.OnItemCli
 
         lv.setOnItemClickListener(this);
 
-
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-
 
         return rootView;
     }
 
-
-
     @Override
     public void onStart() {
         super.onStart();
-        /*
-        lvRoutes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent = new Intent(getActivity(), ListFragment.class);
-
-                intent.putExtra("text", lvRoutes.getItemAtPosition((int) id).toString());
-                startActivity(intent);
-            }
-        });
-        //aa.addAll(StopParser.getInstance().getmStopList());
-        //aa.addAll(CalendarParser.getInstance().getmCalendarList());
-
-        aa.notifyDataSetChanged();
-        */
     }
 
     public void addAll() {
