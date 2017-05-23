@@ -41,6 +41,8 @@ import ehb.be.eindprojectmivbopendata.fragments.ZoekenFragment;
 import ehb.be.eindprojectmivbopendata.parsers.AgencyParser;
 import ehb.be.eindprojectmivbopendata.parsers.RouteParser;
 import ehb.be.eindprojectmivbopendata.parsers.StopParser;
+import ehb.be.eindprojectmivbopendata.parsers.StoptimeParser;
+import ehb.be.eindprojectmivbopendata.parsers.TripParser;
 import ehb.be.eindprojectmivbopendata.requests.InputStreamRequest;
 import ehb.be.eindprojectmivbopendata.source.Stop;
 import ehb.be.eindprojectmivbopendata.util.DatabaseDAO;
@@ -268,10 +270,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 dao.insertAllStops(StopParser.getInstance().getmStopList());
                 sharedPreferences.edit().putBoolean("done_stops", true).apply();
             }
-            //StoptimeParser.getInstance()
-            //        .parseStoptime(new FileInputStream(getCacheDir()+File.pathSeparator+"stop_times.txt"));
-            //TripParser.getInstance()
-            //        .parseTrip(new FileInputStream(getCacheDir()+File.pathSeparator+"trips.txt"));
+            StoptimeParser.getInstance()
+                    .parseStoptime(new FileInputStream(getCacheDir()+File.pathSeparator+"stop_times.txt"));
+            TripParser.getInstance()
+                    .parseTrip(new FileInputStream(getCacheDir()+File.pathSeparator+"trips.txt"));
             sharedPreferences.edit().putBoolean("first", false).apply();
             mRoute.addAll();
             mapFragment.getAllStopsOnMap();
