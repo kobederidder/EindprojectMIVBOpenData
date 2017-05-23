@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import ehb.be.eindprojectmivbopendata.R;
 import ehb.be.eindprojectmivbopendata.parsers.StopParser;
 import ehb.be.eindprojectmivbopendata.source.Stop;
+import ehb.be.eindprojectmivbopendata.util.DatabaseDAO;
 
 
 /**
@@ -31,6 +32,7 @@ public class MapFragment  extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private MapView gm;
     ArrayList<Stop> mStop = new ArrayList<>();
+    DatabaseDAO dao;
 
     public MapFragment() {
     }
@@ -48,6 +50,10 @@ public class MapFragment  extends Fragment implements OnMapReadyCallback {
         gm = (MapView) rootView.findViewById(R.id.mv_map);
         gm.onCreate(savedInstanceState);
         gm.getMapAsync(this);
+
+
+
+        getAllStopsOnMap();
 
         return rootView;
     }
@@ -74,8 +80,10 @@ public class MapFragment  extends Fragment implements OnMapReadyCallback {
     }
 
     public void getAllStopsOnMap() {
-        mStop = StopParser.getInstance().getmStopList();
-
+        if(getActivity() != null) {
+            dao = new DatabaseDAO(getActivity());
+            mStop = dao.getAllStops();
+        }
         if (mMap != null) {
             drawMarkers();
         }

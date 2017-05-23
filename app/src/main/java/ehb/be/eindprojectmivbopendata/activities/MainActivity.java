@@ -50,10 +50,8 @@ import ehb.be.eindprojectmivbopendata.util.DatabaseDAO;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    ArrayList<Stop> mStopList = new ArrayList<>();
     private SharedPreferences sharedPreferences;
     private final String FRAGMENT_BACKSTACK = "fragment_backstack";
-    private GoogleMap mMap;
     private RouteListFragment mRoute = RouteListFragment.newInstance();
     private MapFragment mapFragment = new MapFragment();
     private ZoekenFragment zoekenFragment = new ZoekenFragment();
@@ -121,7 +119,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -270,10 +267,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 dao.insertAllStops(StopParser.getInstance().getmStopList());
                 sharedPreferences.edit().putBoolean("done_stops", true).apply();
             }
-            StoptimeParser.getInstance()
-                    .parseStoptime(new FileInputStream(getCacheDir()+File.pathSeparator+"stop_times.txt"));
-            TripParser.getInstance()
-                    .parseTrip(new FileInputStream(getCacheDir()+File.pathSeparator+"trips.txt"));
+            //StoptimeParser.getInstance().parseStoptime(new FileInputStream(getCacheDir()+File.pathSeparator+"stop_times.txt"));
+           // TripParser.getInstance().parseTrip(new FileInputStream(getCacheDir()+File.pathSeparator+"trips.txt"));
             sharedPreferences.edit().putBoolean("first", false).apply();
             mRoute.addAll();
             mapFragment.getAllStopsOnMap();
