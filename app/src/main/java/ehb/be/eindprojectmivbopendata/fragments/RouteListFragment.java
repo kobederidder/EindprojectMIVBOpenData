@@ -1,7 +1,6 @@
 package ehb.be.eindprojectmivbopendata.fragments;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -10,20 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import ehb.be.eindprojectmivbopendata.R;
-import ehb.be.eindprojectmivbopendata.parsers.RouteParser;
-import ehb.be.eindprojectmivbopendata.parsers.StopParser;
 import ehb.be.eindprojectmivbopendata.source.Route;
 import ehb.be.eindprojectmivbopendata.source.Stop;
 import ehb.be.eindprojectmivbopendata.util.DatabaseDAO;
 import ehb.be.eindprojectmivbopendata.util.RouteAdapter;
 import ehb.be.eindprojectmivbopendata.util.StopAdapter;
+
 
 /**
  * Created by mobapp10 on 15/05/17.

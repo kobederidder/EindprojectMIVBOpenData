@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="ehb.be.eindprojectmivbopendata.activities.MainActivity">
+    tools:context="be.ehb.mivbproject.activities.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -45,8 +45,8 @@
         android:layout_marginLeft="18dp"
         android:layout_marginStart="18dp"
         android:ems="10"
-        android:hint="Midi"
-        android:inputType="textAutoComplete" />
+        android:hint="Vertrek"
+        android:dropDownHeight="300dp"/>
 
     <AutoCompleteTextView
         android:id="@+id/et_bestemming"
@@ -58,7 +58,7 @@
         android:layout_alignStart="@+id/et_vertrek"
         android:layout_below="@+id/tv_bestemming"
         android:ems="10"
-        android:hint="Atomium"
+        android:hint="Aankomst"
         android:inputType="textAutoComplete|textPersonName" />
 
     <TextView

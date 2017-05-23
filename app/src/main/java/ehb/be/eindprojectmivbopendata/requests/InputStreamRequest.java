@@ -10,10 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by mobapp10 on 11/05/17.
+ * Created by MVH on 20-5-2017.
  */
 
-public class InputStreamRequest extends Request<byte[]> {
+//http://stackoverflow.com/questions/17049473/how-to-set-custom-header-in-volley-request
+public class InputStreamRequest extends Request<byte[]>{
 
     private final Response.Listener<byte[]> mListener;
     //request headerParams
@@ -21,7 +22,7 @@ public class InputStreamRequest extends Request<byte[]> {
     //create a static map for directly accessing headers
     public Map<String, String> responseHeaders ;
 
-    public InputStreamRequest(int post, String mUrl,Response.Listener<byte[]> listener,
+    public InputStreamRequest(int post, String mUrl, Response.Listener<byte[]> listener,
                               Response.ErrorListener errorListener, HashMap<String, String> params) {
         super(post, mUrl, errorListener);
         // this request would never use cache since you are fetching the file content from server
@@ -32,7 +33,7 @@ public class InputStreamRequest extends Request<byte[]> {
 
     @Override
     protected Map<String, String> getParams()
-            throws com.android.volley.AuthFailureError {
+            throws AuthFailureError {
         return mParams;
     };
 

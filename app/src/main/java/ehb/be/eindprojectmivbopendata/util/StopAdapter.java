@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import ehb.be.eindprojectmivbopendata.R;
 import ehb.be.eindprojectmivbopendata.source.Stop;
 
+
 /**
  * Created by mobapp10 on 18/05/17.
  */
@@ -20,6 +21,7 @@ public class StopAdapter  extends BaseAdapter {
 
     private ArrayList<Stop> stopArrayList;
     private static LayoutInflater inflater;
+    ViewHolder viewHolder;
 
     public void addAllStops(ArrayList<Stop> mStop) {
         this.stopArrayList = mStop;
@@ -52,7 +54,7 @@ public class StopAdapter  extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+
 
         if(convertView == null) {
             convertView = inflater.inflate(R.layout.row_stop, parent, false);
@@ -66,7 +68,7 @@ public class StopAdapter  extends BaseAdapter {
         }
 
         Stop temp = stopArrayList.get(position);
-        viewHolder.tvStopName.setText(temp.getStop_name());
+        viewHolder.tvStopName.setText(temp.getStop_name().replace("\"", ""));
 
         return convertView;
     }

@@ -8,13 +8,11 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import ehb.be.eindprojectmivbopendata.R;
-import ehb.be.eindprojectmivbopendata.parsers.StopParser;
 import ehb.be.eindprojectmivbopendata.source.Route;
 import ehb.be.eindprojectmivbopendata.source.Stop;
 import ehb.be.eindprojectmivbopendata.util.DatabaseDAO;
@@ -52,7 +50,6 @@ public class ListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
 
         ListView lv = (ListView) rootView.findViewById(R.id.lv_list);
@@ -61,7 +58,7 @@ public class ListFragment extends Fragment {
 
         // Route r = (Route) getArguments().getSerializable("route");
 
-        sa = new StopAdapter(getActivity(), dao.getAllStops());
+        sa = new StopAdapter(getActivity(), dao.getDistinctStopNames());
         lv.setAdapter(sa);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         addAllStops();
@@ -76,7 +73,7 @@ public class ListFragment extends Fragment {
     }
 
     public void addAllStops() {
-        mStop = dao.getAllStops();
+        mStop = dao.getDistinctStopNames();
 
         sa.addAllStops(mStop);
         sa.notifyDataSetChanged();

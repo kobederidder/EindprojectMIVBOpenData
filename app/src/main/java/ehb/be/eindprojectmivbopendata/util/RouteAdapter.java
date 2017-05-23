@@ -8,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import ehb.be.eindprojectmivbopendata.R;
 import ehb.be.eindprojectmivbopendata.source.Route;
+
 
 /**
  * Created by mobapp10 on 15/05/17.

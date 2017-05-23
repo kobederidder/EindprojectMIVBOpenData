@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ehb.be.eindprojectmivbopendata">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -33,7 +34,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCzNzoGs9L4OaqZdLM9CFf7s2MTaahtawY"/>
+            android:value="AIzaSyCVQ3SHrA58IErFt7nWsPc6cvlxQYYktpc"/>
 
 
     </application>

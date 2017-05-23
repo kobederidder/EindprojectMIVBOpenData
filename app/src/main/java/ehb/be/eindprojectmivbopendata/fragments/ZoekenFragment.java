@@ -14,18 +14,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import java.lang.reflect.Array;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
-import ehb.be.eindprojectmivbopendata.parsers.StopParser;
 import ehb.be.eindprojectmivbopendata.R;
 import ehb.be.eindprojectmivbopendata.source.Stop;
 import ehb.be.eindprojectmivbopendata.util.DatabaseDAO;
+
 
 /**
   Created by mobapp06 on 16/05/17.
@@ -43,6 +40,8 @@ public class ZoekenFragment extends Fragment{
     private String uur = new SimpleDateFormat("hh:mm").format(new Date());
     //TO DO - UUR FORMATEREN NAAR EUROPESE WEERGAVE (iets met functie 'LOCALE' ? )
 
+    private final String FRAGMENT_BACKSTACK = "fragment_backstack";
+
     ArrayList<Stop> haltes;
     DatabaseDAO dao;
 
@@ -54,27 +53,34 @@ public class ZoekenFragment extends Fragment{
         return fragment;
     }
 
-    public void geefVertrekHalte() {
+    public void geefVertrekHalte(){
         dao = new DatabaseDAO(getActivity());
-        haltes = dao.getAllStops();
+        haltes = dao.getDistinctStopNames();
         Log.d("AUTOCOMPLETE", String.valueOf(haltes));
 
-        Log.d("AUTOCOMPLETE", "build autocomplete");
+        Log.d("AUTOCOMPLETE","build autocomplete");
         ArrayList<String> halteNamen = new ArrayList<>();
-        for (Stop temp : haltes) {
-            halteNamen.add(temp.getStop_name().replace("\"", ""));
-            Log.d("AUTOCOMPLETE", temp.getStop_name());
+        for(Stop temp : haltes){
+            halteNamen.add(temp.getStop_name().replace("\"",""));
+            Log.d("AUTOCOMPLETE",temp.getStop_name());
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.select_dialog_item, halteNamen);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>
+                (getActivity(), android.R.layout.select_dialog_item, halteNamen);
         actvVertrek.setAdapter(adapter);
         actvVertrek.setThreshold(1);
+        //actvVertrek.enoughToFilter();
+        //actvVertrek.getDropDownAnchor();
+
+
+        //Stop temp = haltes.get(position);
+
+        //actvVertrek.getText(temp.getStop_name().replace("\"", ""));
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
         View rootView = inflater.inflate(R.layout.content_main, container, false);
 
         actvBestemming = (AutoCompleteTextView) rootView.findViewById(R.id.et_bestemming);
@@ -93,6 +99,16 @@ public class ZoekenFragment extends Fragment{
         etUur.setText(uur);
 
         btnZoeken = (Button) rootView.findViewById(R.id.btn_zoeken);
+
+        btnZoeken.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getFragmentManager().beginTransaction()
+                        .replace(R.id.container, RouteListFragment.newInstance())
+                        .addToBackStack(FRAGMENT_BACKSTACK)
+                        .commit();
+            }
+        });
 
         geefVertrekHalte();
 
@@ -132,6 +148,17 @@ public class ZoekenFragment extends Fragment{
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(calendar.getTime());
     }
+
+    View.OnClickListener zoeken = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            getActivity().getFragmentManager().beginTransaction()
+                    .replace(R.id.container, RouteListFragment.newInstance())
+                    .addToBackStack(FRAGMENT_BACKSTACK)
+                    .commit();
+        }
+    };
 
 
 }

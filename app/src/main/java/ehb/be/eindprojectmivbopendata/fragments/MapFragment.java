@@ -21,6 +21,7 @@ import ehb.be.eindprojectmivbopendata.R;
 import ehb.be.eindprojectmivbopendata.parsers.StopParser;
 import ehb.be.eindprojectmivbopendata.source.Stop;
 
+
 /**
  * Created by mobapp10 on 15/05/17.
  */

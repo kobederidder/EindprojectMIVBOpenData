@@ -1,15 +1,13 @@
 package ehb.be.eindprojectmivbopendata.parsers;
 
-import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import ehb.be.eindprojectmivbopendata.source.Agency;
 import ehb.be.eindprojectmivbopendata.source.Calendar_Dates;
+
 
 /**
  * Created by mobapp10 on 11/05/17.

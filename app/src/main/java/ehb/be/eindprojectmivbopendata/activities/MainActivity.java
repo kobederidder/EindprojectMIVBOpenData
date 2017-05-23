@@ -2,20 +2,24 @@ package ehb.be.eindprojectmivbopendata.activities;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import android.preference.PreferenceManager;
-import android.util.Log;
-
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.GoogleMap;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -29,34 +33,18 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import ehb.be.eindprojectmivbopendata.R;
-import ehb.be.eindprojectmivbopendata.fragments.SettingsFragment;
-import ehb.be.eindprojectmivbopendata.fragments.ZoekenFragment;
 import ehb.be.eindprojectmivbopendata.fragments.ListFragment;
 import ehb.be.eindprojectmivbopendata.fragments.MapFragment;
 import ehb.be.eindprojectmivbopendata.fragments.RouteListFragment;
-import ehb.be.eindprojectmivbopendata.requests.InputStreamRequest;
+import ehb.be.eindprojectmivbopendata.fragments.SettingsFragment;
+import ehb.be.eindprojectmivbopendata.fragments.ZoekenFragment;
 import ehb.be.eindprojectmivbopendata.parsers.AgencyParser;
-import ehb.be.eindprojectmivbopendata.parsers.CalendarParser;
-import ehb.be.eindprojectmivbopendata.parsers.Calendar_DatesParser;
 import ehb.be.eindprojectmivbopendata.parsers.RouteParser;
-import ehb.be.eindprojectmivbopendata.parsers.ShapeParser;
 import ehb.be.eindprojectmivbopendata.parsers.StopParser;
-import ehb.be.eindprojectmivbopendata.parsers.TripParser;
-import ehb.be.eindprojectmivbopendata.source.Agency;
+import ehb.be.eindprojectmivbopendata.requests.InputStreamRequest;
 import ehb.be.eindprojectmivbopendata.source.Stop;
 import ehb.be.eindprojectmivbopendata.util.DatabaseDAO;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -93,11 +81,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         getFragmentManager().beginTransaction()
-                .replace(R.id.container, zoekenFragment)
+                .replace(R.id.container, mRoute)
                 .addToBackStack(FRAGMENT_BACKSTACK)
                 .commit();
-
-        downloadZIP();
 
     }
 
@@ -268,14 +254,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if(!sharedPreferences.getBoolean("done_routes", false)) {
             RouteParser.getInstance()
                    .parseRoute(new FileInputStream(getCacheDir()+File.pathSeparator+"routes.txt"), this);
+
                 dao.insertAllRoutes(RouteParser.getInstance().getmRouteList());
                 sharedPreferences.edit().putBoolean("done_routes", true).apply();
             }
             //ShapeParser.getInstance()
             //        .parseShape(new FileInputStream(getCacheDir()+File.pathSeparator+"shapes.txt"));
+
             if(!sharedPreferences.getBoolean("done_stops", false)) {
             StopParser.getInstance()
                     .parseStop(new FileInputStream(getCacheDir()+File.pathSeparator+"stops.txt"));
+
                 dao.insertAllStops(StopParser.getInstance().getmStopList());
                 sharedPreferences.edit().putBoolean("done_stops", true).apply();
             }

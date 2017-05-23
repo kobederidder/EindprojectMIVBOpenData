@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import ehb.be.eindprojectmivbopendata.source.Route;
 import ehb.be.eindprojectmivbopendata.util.DatabaseDAO;
 
+
 /**
  * Created by mobapp10 on 11/05/17.
  */
@@ -45,7 +46,6 @@ public class RouteParser {
 
         DatabaseDAO dao = new DatabaseDAO(c);
         dao.insertAllRoutes(mRouteList);
-
         dao.close();
     }
 
