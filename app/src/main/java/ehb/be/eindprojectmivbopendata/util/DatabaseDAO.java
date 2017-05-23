@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import ehb.be.eindprojectmivbopendata.source.Route;
 import ehb.be.eindprojectmivbopendata.source.Stop;
+import ehb.be.eindprojectmivbopendata.source.Stoptime;
 
 
 /**
@@ -93,6 +94,7 @@ public class DatabaseDAO {
         return temp;
     }
 
+
     //Alles van stops dao
     public ArrayList<Stop> getAllStops() {
         ArrayList<Stop> allStops = new ArrayList<>();
@@ -161,6 +163,58 @@ public class DatabaseDAO {
         temp.setZone_id(cursor.getString(6));
         temp.setStop_url(cursor.getString(7));
         temp.setLocation_type(cursor.getString(8));
+
+        return temp;
+    }
+
+
+    //Alles van stoptimes dao
+    public ArrayList<Stoptime> getAllStoptimes() {
+        ArrayList<Stoptime> allStoptimes = new ArrayList<>();
+
+        Cursor cursor = db.query(SQLiteHelper.getTableStopTimes(), SQLiteHelper.getColumnsStopTimes(),
+                null, null, null, null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            Stoptime temp = cursorToStoptime(cursor);
+            allStoptimes.add(temp);
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return allStoptimes;
+    }
+
+    public boolean insertAllStoptimes(ArrayList<Stoptime> stoptimeArrayList) {
+
+        ContentValues mValuesStoptime = new ContentValues();
+        for(Stoptime s : stoptimeArrayList) {
+            mValuesStoptime.put(SQLiteHelper.getColumnTripId(), s.getTrip_id());
+            mValuesStoptime.put(SQLiteHelper.getColumnArrivalTime(), s.getArrival_time());
+            mValuesStoptime.put(SQLiteHelper.getColumnDepartureTime(), s.getDeparture_time());
+            mValuesStoptime.put(SQLiteHelper.getColumnStopId(), s.getStop_id());
+            mValuesStoptime.put(SQLiteHelper.getColumnStopSequence(), s.getStop_sequence());
+            mValuesStoptime.put(SQLiteHelper.getColumnPickupType(), s.getPickup_type());
+            mValuesStoptime.put(SQLiteHelper.getColumnDropOffType(), s.getDrop_off_type());
+
+            long resultID = db.insert(SQLiteHelper.getTableStopTimes(), null, mValuesStoptime);
+
+            if(resultID == -1)
+                return false;
+        }
+        return true;
+    }
+
+    private Stoptime cursorToStoptime (Cursor cursor) {
+        Stoptime temp = new Stoptime();
+
+        temp.setTrip_id(cursor.getString(0));
+        temp.setArrival_time(cursor.getString(1));
+        temp.setDeparture_time(cursor.getString(2));
+        temp.setStop_id(cursor.getString(3));
+        temp.setStop_sequence(cursor.getString(4));
+        temp.setPickup_type(cursor.getString(5));
+        temp.setDrop_off_type(cursor.getString(6));
 
         return temp;
     }
