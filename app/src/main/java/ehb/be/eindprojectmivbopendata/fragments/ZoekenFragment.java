@@ -85,6 +85,25 @@ public class ZoekenFragment extends Fragment {
         //actvVertrek.getText(temp.getStop_name().replace("\"", ""));
     }
 
+    public void geefAankomstHalte() {
+        dao = new DatabaseDAO(getActivity());
+        haltes = dao.getDistinctStopNames();
+        Log.d("AUTOCOMPLETE", String.valueOf(haltes));
+
+        Log.d("AUTOCOMPLETE", "build autocomplete");
+        ArrayList<String> halteNamen = new ArrayList<>();
+        for (Stop temp : haltes) {
+            halteNamen.add(temp.getStop_name().replace("\"", ""));
+            Log.d("AUTOCOMPLETE", temp.getStop_name());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>
+                (getActivity(), android.R.layout.select_dialog_item, halteNamen);
+        actvBestemming.setAdapter(adapter);
+        actvBestemming.setThreshold(1);
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -124,6 +143,7 @@ public class ZoekenFragment extends Fragment {
         });
 
         geefVertrekHalte();
+        geefAankomstHalte();
 
         return rootView;
     }
