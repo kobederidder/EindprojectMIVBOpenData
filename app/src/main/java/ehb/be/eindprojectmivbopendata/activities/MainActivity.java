@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         HashMap<String, String> params = new HashMap<>();
 
         params.put("Authorization:", "Bearer 81f11d4c20401a22a38e0138c3713d66");
-        Toast.makeText(this, "download accessed", Toast.LENGTH_SHORT).show();
+
         //headers kan je niet setten, fast and dirty de klasse overschrijven
         InputStreamRequest getRequest = new InputStreamRequest(Request.Method.GET,
                 "https://opendata-api.stib-mivb.be/Files/1.0/Gtfs",
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 responseGETErrorListener,
                 params
         );
-        Toast.makeText(this, "stream started", Toast.LENGTH_SHORT).show();
+
 
         mQueue.add(getRequest);
     }

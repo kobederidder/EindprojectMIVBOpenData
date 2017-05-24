@@ -66,12 +66,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/btn_zoeken"
         android:text="@string/btn_zoeken_str"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:background="@color/colorPrimary"
         android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:layout_marginTop="56dp"
+        android:layout_below="@+id/btn_datum"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/btn_datum"

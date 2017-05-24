@@ -76,7 +76,7 @@ public class MapFragment  extends Fragment implements OnMapReadyCallback {
                 .position(new LatLng(50.85712, 4.34744))
                 .title("Marker"));
 
-        drawMarkers();
+
     }
 
     public void getAllStopsOnMap() {
