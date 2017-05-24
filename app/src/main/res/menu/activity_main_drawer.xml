@@ -6,17 +6,11 @@
             android:id="@+id/nav_home"
             android:title="Zoek Uw Halte" />
         <item
-            android:id="@+id/nav_list"
-            android:title="List" />
-        <item
             android:id="@+id/nav_detaillist"
             android:title="Detail Lijst" />
         <item
             android:id="@+id/nav_map"
                android:title="Map" />
-        <item
-            android:id="@+id/nav_settings"
-            android:title="Opties" />
     </group>
 
 </menu>
