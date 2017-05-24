@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         getFragmentManager().beginTransaction()
-                .replace(R.id.container, mRoute)
+                .replace(R.id.container, zoekenFragment)
                 .addToBackStack(FRAGMENT_BACKSTACK)
                 .commit();
 
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return super.onOptionsItemSelected(item);
     }
-
+*/
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .addToBackStack(FRAGMENT_BACKSTACK)
                         .commit();
             break;
+            /*
         //Ga naar lijst weergave
             case R.id.nav_list:
             ListFragment listFragment = ListFragment.newInstance();
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .addToBackStack(FRAGMENT_BACKSTACK)
                         .commit();
             break;
+            */
         //Ga naar Map weergave
             case R.id.nav_map:
                 getFragmentManager().beginTransaction()
@@ -155,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .addToBackStack(FRAGMENT_BACKSTACK)
                         .commit();
             break;
-
+/*
         //Ga naar Opties (a.k.a. Settings, Preferences)
             case R.id.nav_settings:
                 getFragmentManager().beginTransaction()
@@ -163,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .addToBackStack(FRAGMENT_BACKSTACK)
                     .commit();
             break;
+            */
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -188,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 params
         );
         Toast.makeText(this, "stream started", Toast.LENGTH_SHORT).show();
+
         mQueue.add(getRequest);
     }
 
